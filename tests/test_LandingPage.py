@@ -135,7 +135,9 @@ class TestLanding:
         assert landing_page.is_elements_displayed(landing_page.project_locators.logo_projects_pics), \
             ' ↑ Отображение логотипов ExLab, HealthyLife, Easyhelp в блоке'
         landing_page.scroll_to(landing_page.project_locators.header_projects)
-        assert landing_page.is_elements_displayed(landing_page.project_locators.projects_text)
+        assert landing_page.is_elements_displayed(landing_page.project_locators.projects_text), \
+            ' ↑ Отображение текста в описании проекта ExLab, HealthyLife, Easyhelp'
+
 
 
 
