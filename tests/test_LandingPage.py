@@ -1,4 +1,5 @@
 import pytest
+from selenium.webdriver.common.by import By
 from pages.LandingPage import LandingPage
 
 
@@ -7,54 +8,54 @@ class TestLanding:
     def test1(self, browser):
         landing_page = LandingPage(browser)
         assert landing_page.check_url(browser.current_url), \
-            ' ↑ Лендинг ExLab доступен не по адресу http://test.exlab.team/'
+            ' ↑ Лендинг ExLab доступен по адресу http://test.exlab.team/'
         assert landing_page.is_element_present(landing_page.base_locators.DARK_THEME), \
-            ' ↑ По умолчанию открывается не темная тема лендинга'
+            ' ↑ По умолчанию открывается темная тема лендинга'
 
     def test2(self, browser):
         landing_page = LandingPage(browser)
         assert landing_page.is_element_displayed(landing_page.base_locators.LOGO_PIC_EXLAB), \
-            ' ↑ Ошибка отображения логотипа ExLab'
+            ' ↑ Отображение логотипа ExLab'
 
     def test3(self, browser):
         landing_page = LandingPage(browser)
         href_link = landing_page.base_locators.LANDING_LINK + '#about'
         assert landing_page.check_link_href(landing_page.header_locators.link_o_nas, href_link), \
-            ' ↑ Ссылка не ведет на экран с заголовком О нас'
+            ' ↑ Ссылка О нас ведет на экран с заголовком О нас'
         assert landing_page.is_element_displayed(landing_page.header_locators.link_o_nas),  \
-            ' ↑ Ссылка не отображается'
+            ' ↑ Ссылка О нас отображается'
         assert landing_page.is_element_clickable(landing_page.header_locators.link_o_nas), \
-            ' ↑ Ссылка не кликабельна'
+            ' ↑ Ссылка О нас кликабельна'
 
     def test4(self, browser):
         landing_page = LandingPage(browser)
         href_link = landing_page.base_locators.LANDING_LINK + '#projects'
         assert landing_page.check_link_href(landing_page.header_locators.link_projects, href_link), \
-            ' ↑ Ссылка не ведет на экран с заголовком Проекты'
+            ' ↑ Ссылка Проекты ведет на экран с заголовком Проекты'
         assert landing_page.is_element_displayed(landing_page.header_locators.link_projects),  \
-            ' ↑ Ссылка не отображается'
+            ' ↑ Ссылка Проекты отображается'
         assert landing_page.is_element_clickable(landing_page.header_locators.link_projects),  \
-            ' ↑ Ссылка не кликабельна'
+            ' ↑ Ссылка Проекты кликабельна'
 
     def test5(self, browser):
         landing_page = LandingPage(browser)
         href_link = landing_page.base_locators.LANDING_LINK + '#mentors'
         assert landing_page.is_element_displayed(landing_page.header_locators.link_mentors), \
-            ' ↑ Ссылка не отображается'
+            ' ↑ Ссылка Менторы отображается'
         assert landing_page.is_element_clickable(landing_page.header_locators.link_mentors), \
-            ' ↑ Ссылка не кликабельна'
+            ' ↑ Ссылка Менторы кликабельна'
         assert landing_page.check_link_href(landing_page.header_locators.link_mentors, href_link), \
-            ' ↑ Ссылка не ведет на экран с заголовком Менторы'
+            ' ↑ Ссылка Менторы ведет на экран с заголовком Менторы'
 
     def test6(self, browser):
         landing_page = LandingPage(browser)
         href_link = landing_page.base_locators.LANDING_LINK + '#startup'
         assert landing_page.check_link_href(landing_page.header_locators.link_startup, href_link), \
-            ' ↑ Ссылка не ведет на экран с заголовком StartUp для'
+            ' ↑ Ссылка StartUP ведет на экран с заголовком StartUp для'
         assert landing_page.is_element_displayed(landing_page.header_locators.link_startup), \
-            ' ↑ Ссылка не отображается'
+            ' ↑ Ссылка StartUP отображается'
         assert landing_page.is_element_clickable(landing_page.header_locators.link_startup), \
-            ' ↑ Ссылка не кликабельна'
+            ' ↑ Ссылка StartUP кликабельна'
 
     def test7(self, browser):
         landing_page = LandingPage(browser)
@@ -126,9 +127,15 @@ class TestLanding:
         assert browser.current_url == href, 'При нажатии на кнопку [Присоединиться] открывается форма регистрации'
 
     def test16(self, browser):
+        white_color = ['255', '255', '255']
         landing_page = LandingPage(browser)
         assert landing_page.is_element_displayed(landing_page.project_locators.header_projects), \
             ' ↑ Отображение надписи Проекты'
+        elem = landing_page.return_element(landing_page.project_locators.header_projects)
+        color = elem.value_of_css_property('color')
+        color = landing_page.what_about_color(color)
+        assert color == white_color, \
+            ' ↑ Цвет надписи Проекты белого цвета'
 
     def test17(self, browser):
         landing_page = LandingPage(browser)
@@ -137,6 +144,27 @@ class TestLanding:
         landing_page.scroll_to(landing_page.project_locators.header_projects)
         assert landing_page.is_elements_displayed(landing_page.project_locators.projects_text), \
             ' ↑ Отображение текста в описании проекта ExLab, HealthyLife, Easyhelp'
+
+    def test18(self, browser):
+        landing_page = LandingPage(browser)
+        browser.maximize_window()
+        mentors_card = browser.find_elements(*landing_page.mentors_locators.mentors_card)
+        for mentor in mentors_card:
+            button = mentor.find_element(By.CSS_SELECTOR, 'span')
+            browser.execute_script("arguments[0].click();", mentor)
+            assert button.get_attribute('class').split(' ')[1] == 'bChkBl', \
+                ' ↑ При нажатии на область ментора (при закрытом спойлере) спойлер открывается'
+            assert landing_page.is_element_displayed(landing_page.mentors_locators.mentor_photo), \
+                ' ↑  Фотография ментора  отображается'
+            assert landing_page.is_element_displayed(landing_page.mentors_locators.mentor_text), \
+                ' ↑ При открытом спойлере отображается информации о менторе '
+            browser.execute_script("arguments[0].click();", mentor)
+            assert button.get_attribute('class').split(' ')[1] == 'bdRiog', \
+                ' ↑ При нажатии на область ментора (при развернутом спойлере) спойлер закрывается'
+
+
+
+
 
 
 

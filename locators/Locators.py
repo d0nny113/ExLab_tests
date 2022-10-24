@@ -63,11 +63,9 @@ class ProjectsDark:
 class MentorsDark:
 
     header_projects = (By.CSS_SELECTOR, '#mentors div')
-    harlap_closed = (By.XPATH, '//span[@class="sc-bUbCnL bChkBl"]')
-    harlap_open = (By.XPATH, '//p[@class="sc-hlnMnd hNVIjG" and contains(text(), "Станислав Харлап")]')
-    judaev_open = (By.XPATH, '//p[@class="sc-hlnMnd hNVIjG" and contains(text(), "Александр Юдаев")]')
-    sovras_open = (By.XPATH, '//p[@class="sc-hlnMnd hNVIjG" and contains(text(), "Сергей Соврас")]')
-    murashka_open = (By.XPATH, '//p[@class="sc-hlnMnd hNVIjG" and contains(text(), "Александра Мурашко")]')
+    mentors_card = (By.XPATH, '//div[@class="sc-jOhDuK jCfVZq"]')
+    mentor_photo = (By.CSS_SELECTOR, 'div.sc-kIKDeO.hGmlWc img')
+    mentor_text = (By.CSS_SELECTOR, 'div.sc-kIKDeO.hGmlWc ul')
 
 
 class FooterDark:
