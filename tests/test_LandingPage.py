@@ -71,7 +71,7 @@ class TestLanding:
     def test8(self, browser):
         landing_page = LandingPage(browser)
 
-    def test9(self, browser):
+    def test9(self, browser):   # нужно поправить для FireFox
         landing_page = LandingPage(browser)
         href = 'https://t.me/ExLab_registration_bot'
         assert landing_page.is_element_displayed(landing_page.header_locators.button_join), \
@@ -143,13 +143,11 @@ class TestLanding:
         landing_page = LandingPage(browser)
         assert landing_page.is_elements_displayed(landing_page.project_locators.logo_projects_pics), \
             ' ↑ Отображение логотипов ExLab, HealthyLife, Easyhelp в блоке'
-        landing_page.scroll_to(landing_page.project_locators.header_projects)
         assert landing_page.is_elements_displayed(landing_page.project_locators.projects_text), \
             ' ↑ Отображение текста в описании проекта ExLab, HealthyLife, Easyhelp'
 
     def test18(self, browser):
         landing_page = LandingPage(browser)
-        browser.maximize_window()
         mentors_card = browser.find_elements(*landing_page.mentors_locators.mentors_card)
         for mentor in mentors_card:
             button = mentor.find_element(*landing_page.mentors_locators.mentors_button)

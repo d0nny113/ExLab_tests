@@ -57,7 +57,7 @@ class ProjectsDark:
 
     header_projects = (By.CSS_SELECTOR, '#projects div')
     logo_projects_pics = (By.XPATH, '//img[@class="sc-bBXxYQ hEflMO"]')
-    projects_text = (By.XPATH, '//p[@class="sc-cOFTSb bNtNdQ is-inview"]')
+    projects_text = (By.XPATH, '//p[@class="sc-cOFTSb bNtNdQ"]')
 
 
 class MentorsDark:

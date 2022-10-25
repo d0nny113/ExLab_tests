@@ -36,13 +36,16 @@ class BasePage(object):
         location = element.location
         return location
 
-    def return_element(self, locator):
+    def return_element(self, locator) -> WebElement:
         element = WebDriverWait(self, 10).until(exp_cond.visibility_of_element_located(locator))
         return element
 
+    def scroll_to_elem(self, element):
+        return self.driver.execute_script("arguments[0].scrollIntoView();", element)
+
     def scroll_to(self, locator):
-        element = WebDriverWait(self, 10).until(exp_cond.presence_of_element_located(locator))
-        return element.location_once_scrolled_into_view
+        element = WebDriverWait(self, 10).until(exp_cond.visibility_of_element_located(locator))
+        return self.driver.execute_script("arguments[0].scrollIntoView();", element)
 
     def is_element_clickable(self, locator):
         try:
@@ -80,3 +83,6 @@ class BasePage(object):
 
     def click(self, element):
         return self.driver.execute_script("arguments[0].click();", element)
+
+    def wait_load_wind(self):
+        return WebDriverWait(self.driver, 5).until(exp_cond.new_window_is_opened(self.driver.window_handles))
