@@ -77,3 +77,6 @@ class BasePage(object):
         r, g, b = res[0], res[1], res[2]
         answer = [r, g, b]
         return answer
+
+    def click(self, element):
+        return self.driver.execute_script("arguments[0].click();", element)

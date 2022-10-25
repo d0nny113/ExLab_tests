@@ -1,3 +1,5 @@
+import time
+
 import pytest
 from selenium.webdriver.common.by import By
 from pages.LandingPage import LandingPage
@@ -150,15 +152,15 @@ class TestLanding:
         browser.maximize_window()
         mentors_card = browser.find_elements(*landing_page.mentors_locators.mentors_card)
         for mentor in mentors_card:
-            button = mentor.find_element(By.CSS_SELECTOR, 'span')
-            browser.execute_script("arguments[0].click();", mentor)
+            button = mentor.find_element(*landing_page.mentors_locators.mentors_button)
+            landing_page.click(mentor)
             assert button.get_attribute('class').split(' ')[1] == 'bChkBl', \
                 ' ↑ При нажатии на область ментора (при закрытом спойлере) спойлер открывается'
             assert landing_page.is_element_displayed(landing_page.mentors_locators.mentor_photo), \
                 ' ↑  Фотография ментора  отображается'
             assert landing_page.is_element_displayed(landing_page.mentors_locators.mentor_text), \
                 ' ↑ При открытом спойлере отображается информации о менторе '
-            browser.execute_script("arguments[0].click();", mentor)
+            landing_page.click(mentor)
             assert button.get_attribute('class').split(' ')[1] == 'bdRiog', \
                 ' ↑ При нажатии на область ментора (при развернутом спойлере) спойлер закрывается'
 

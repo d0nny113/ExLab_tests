@@ -66,6 +66,7 @@ class MentorsDark:
     mentors_card = (By.XPATH, '//div[@class="sc-jOhDuK jCfVZq"]')
     mentor_photo = (By.CSS_SELECTOR, 'div.sc-kIKDeO.hGmlWc img')
     mentor_text = (By.CSS_SELECTOR, 'div.sc-kIKDeO.hGmlWc ul')
+    mentors_button = (By.CSS_SELECTOR, 'span')
 
 
 class FooterDark:
