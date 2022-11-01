@@ -1,13 +1,15 @@
 import time
 
 import pytest
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from pages.LandingPage import LandingPage
+from locators.Locators import HeaderDark
 
 
 class TestLanding:
 
-    def test1(self, browser):
+    def test1(self, browser, time_delta):
         landing_page = LandingPage(browser)
         assert landing_page.check_url(browser.current_url), \
             ' ↑ Лендинг ExLab доступен по адресу http://test.exlab.team/'
@@ -146,8 +148,9 @@ class TestLanding:
         assert landing_page.is_elements_displayed(landing_page.project_locators.projects_text), \
             ' ↑ Отображение текста в описании проекта ExLab, HealthyLife, Easyhelp'
 
-    def test18(self, browser):
+    def test18(self, browser, time_delta):
         landing_page = LandingPage(browser)
+        time.sleep(5)
         mentors_card = browser.find_elements(*landing_page.mentors_locators.mentors_card)
         for mentor in mentors_card:
             button = mentor.find_element(*landing_page.mentors_locators.mentors_button)
@@ -162,6 +165,17 @@ class TestLanding:
             assert button.get_attribute('class').split(' ')[1] == 'bdRiog', \
                 ' ↑ При нажатии на область ментора (при развернутом спойлере) спойлер закрывается'
 
+    def test19(self, browser):
+        landing_page = LandingPage(browser)
+        assert landing_page.is_element_displayed(landing_page.start_up_locators.header), \
+               '↑ Отображение заголовка StartUp для'
+        assert landing_page.is_element_displayed(landing_page.start_up_locators.text), \
+               '↑ Отображение текста в блоке'
+
+    def test20(self, browser):
+        landing_page = LandingPage(browser)
+        assert landing_page.is_element_displayed(landing_page.help_project_locators.header), \
+               '↑ Отображение заголовка Помочь проекту'
 
 
 

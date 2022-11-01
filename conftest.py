@@ -1,4 +1,4 @@
-import pytest, os, requests
+import pytest, os, requests, time
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -81,6 +81,12 @@ def browser(request):
     print("\nquit browser..")
     browser.quit()
 
+@pytest.fixture(autouse=True)
+def time_delta():
+    start_time = time.time()
+    yield
+    end_time = time.time()
+    print (f"\nТест шел: {end_time - start_time}")
 
 # Supports console options (pytest):
 # --browser_name= (firefox or chrome or yandex)
