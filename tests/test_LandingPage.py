@@ -1,5 +1,5 @@
 import time
-
+from selenium import webdriver
 import pytest
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
@@ -13,7 +13,7 @@ class TestLanding:
         landing_page = LandingPage(browser)
         assert landing_page.check_url(browser.current_url), \
             ' ↑ Лендинг ExLab доступен по адресу http://test.exlab.team/'
-        assert landing_page.is_element_present(landing_page.base_locators.DARK_THEME), \
+        assert landing_page.check_theme() == 'Dark', \
             ' ↑ По умолчанию открывается темная тема лендинга'
 
     def test2(self, browser):
@@ -66,7 +66,7 @@ class TestLanding:
         assert landing_page.is_element_displayed(landing_page.header_locators.button_theme), \
             ' ↑ Проверка отображения кнопки переключения темы пользовательского интерфейса Sun Icon'
         landing_page.wait_until_clickable(landing_page.header_locators.button_theme).click()
-        assert landing_page.is_element_displayed(landing_page.base_locators.LIGHT_THEME), \
+        assert landing_page.check_theme() == 'Light', \
             ' ↑ При нажатии на переключатель, тема сайта меняется на светлую'
 
     @pytest.mark.xfail   # ПАДАЮЩИЙ ТЕСТ, ФУНКЦИОНАЛ НЕ ЗАВЕЗЛИ
@@ -150,7 +150,6 @@ class TestLanding:
 
     def test18(self, browser, time_delta):
         landing_page = LandingPage(browser)
-        time.sleep(5)
         mentors_card = browser.find_elements(*landing_page.mentors_locators.mentors_card)
         for mentor in mentors_card:
             button = mentor.find_element(*landing_page.mentors_locators.mentors_button)
@@ -176,6 +175,84 @@ class TestLanding:
         landing_page = LandingPage(browser)
         assert landing_page.is_element_displayed(landing_page.help_project_locators.header), \
                '↑ Отображение заголовка Помочь проекту'
+        assert landing_page.is_elements_displayed(landing_page.help_project_locators.text), \
+               '↑ Отображение текста в блоке'
+
+    def test21(self, browser):
+        href = 'https://boosty.to/exlab_startup'
+        landing_page = LandingPage(browser)
+        assert landing_page.is_element_displayed(landing_page.help_project_locators.link_boosty), \
+               '↑ Отображение кнопки [Boosty]'
+        button = landing_page.return_element(landing_page.help_project_locators.link_boosty)
+        landing_page.click(button)
+        browser.switch_to.window(browser.window_handles[1])
+        assert browser.current_url == href, \
+            'При нажатии на кнопку  [Boosty] открывается страница ExLab на сайте Boosty'
+
+    def test22(self, browser):
+        landing_page = LandingPage(browser)
+        assert landing_page.is_element_displayed(landing_page.stay_connected.header), \
+               '↑ Отображение надписи Оставайся на связи'
+        assert landing_page.is_element_displayed(landing_page.stay_connected.text), \
+            '↑ Отображение текста в блоке '
+
+    def test23(self, browser):
+        landing_page = LandingPage(browser)
+        assert landing_page.is_element_displayed(landing_page.footer_locators.footer_logo), \
+            '↑ Отображение логотипа ExLab'
+        assert landing_page.is_element_displayed(landing_page.footer_locators.footer_text_under_logo), \
+            '↑ Отображение текста под логотипом ExLab'
+
+    def test24(self, browser):  # идет редирект на вход, тест падает нужно доделать
+        href = 'https://www.linkedin.com/company/exlab-start-up'
+        landing_page = LandingPage(browser)
+        assert landing_page.is_element_displayed(landing_page.footer_locators.link_lnkdn), \
+            '↑ Отображение ссылки LNKDN'
+        landing_page.click_footer_link('LNKDN')
+        browser.switch_to.window(browser.window_handles[1])
+        time.sleep(3)
+        assert browser.current_url.startswith('https://www.linkedin.com/'), \
+            '↑ При нажатии попадаем на  LinkedIn'
+
+    def test25(self, browser):
+        href = 'https://www.instagram.com/exlab_startup/'
+        landing_page = LandingPage(browser)
+        assert landing_page.is_element_displayed(landing_page.footer_locators.link_instgrm), \
+            '↑ Отображение ссылки INSTGRM'
+        landing_page.click_footer_link('INSTGRM')
+        browser.switch_to.window(browser.window_handles[1])
+        assert browser.current_url == href, \
+            '↑ При нажатии попадаем на страницу ExLab в Instagram'
+
+    def test26(self, browser):
+        href = 'https://t.me/ExLabChannel'
+        landing_page = LandingPage(browser)
+        assert landing_page.is_element_displayed(landing_page.footer_locators.link_tlgrm), \
+            '↑ Отображение ссылки TLGRM'
+        landing_page.click_footer_link('TLGRM')
+        browser.switch_to.window(browser.window_handles[1])
+        assert browser.current_url == href, \
+            '↑ При нажатии попадаем на страницу ExLab в Telegram'
+
+    def test27(self, browser):
+        href = 'https://www.youtube.com/channel/UC-TAnVYVN7qg5dgsYQJkuvA'
+        landing_page = LandingPage(browser)
+        assert landing_page.is_element_displayed(landing_page.footer_locators.link_ytb), \
+            '↑ Отображение ссылки YTB'
+        landing_page.click_footer_link('YTB')
+        browser.switch_to.window(browser.window_handles[1])
+        assert browser.current_url == href, \
+            '↑ При нажатии попадаем на страницу ExLab в Youtube'
+
+    def test28(self, browser):
+        landing_page = LandingPage(browser)
+        assert landing_page.is_element_displayed(landing_page.footer_locators.mailto), \
+            '↑ Отображение ссылки info@exlab.team '
+
+
+
+
+
 
 
 

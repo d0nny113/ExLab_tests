@@ -19,7 +19,7 @@ class HeaderDark(object):
     button_join = (By.XPATH, '//div[@class="sc-hAZoDl hrEelO"]')
     english_lang = (By.XPATH, '//div[@class="sc-fLlhyt ebHyXN"]')
     button_language = (By.XPATH, '//div[@class="sc-fEOsli iBrHKJ" and contains(text(), "EN")]')
-    button_theme = (By.XPATH, '//div[@class="sc-ksZaOG bxLYUZ"]') #  sc-fnykZs fEkGUM    sc-fnykZs lfkjFc
+    button_theme = (By.XPATH, '//div[@class="sc-ksZaOG bxLYUZ"]')
     link_startup = (By.XPATH, '//a[@class="sc-evZas hJsxZw" and contains(text(), "StartUp для")]')
     link_mentors = (By.XPATH, '//a[@class="sc-evZas hJsxZw" and contains(text(), "Менторы")]')
     link_projects = (By.XPATH, '//a[@class="sc-evZas hJsxZw" and contains(text(), "Проекты")]')
@@ -62,6 +62,15 @@ class ProjectsDark:
 class HelpProjectDark:
 
     header = (By.CSS_SELECTOR, '.sc-jTYCaT.NkTuJ div')
+    text = (By.XPATH, '//div[@class="sc-fctJkW fddeaE"]')
+    link_boosty = (By.XPATH, '//a[@class="sc-dkzDqf gpYSxm" and contains(text(), "Boosty")]')
+    link_patreon = (By.XPATH, '//a[@class="sc-hKMtZM etdNbW" and contains(text(), "Patreon")]')
+
+
+class StayConnectedDark:
+
+    header = (By.CSS_SELECTOR, '.sc-tsFYE.tOJRS div')
+    text = (By.CSS_SELECTOR, '.sc-bhVIhj.iBINeU')
 
 
 class MentorsDark:
@@ -84,4 +93,11 @@ class StartUpForDark:
 class FooterDark:
 
     footer_links = (By.XPATH, '//li[@class="sc-dkdnUF fbGNMP"]')
+    footer_logo = (By.CSS_SELECTOR, '.sc-fIavCj.fEzmxG')
+    footer_text_under_logo = (By.CSS_SELECTOR, '.sc-evrZIY.hdIkLU')
+    link_lnkdn = (By.XPATH, '//a[@class="sc-WCkqM gwMRik" and contains(text(), "lnkdn")]')
+    link_instgrm = (By.XPATH, '//a[@class="sc-WCkqM gwMRik" and contains(text(), "instgrm")]')
+    link_tlgrm = (By.XPATH, '//a[@class="sc-WCkqM gwMRik" and contains(text(), "tlgrm")]')
+    link_ytb = (By.XPATH, '//a[@class="sc-WCkqM gwMRik" and contains(text(), "ytb")]')
+    mailto = (By.CSS_SELECTOR, '.sc-ikjQzJ.gjCqBu')
 

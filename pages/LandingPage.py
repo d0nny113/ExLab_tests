@@ -5,7 +5,7 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from pages.BasePage import BasePage
 from locators.Locators import BaseLocators, HeaderDark, OpportunityDark, HeaderLight, HelpProjectDark
-from locators.Locators import AboutUsDark, ProjectsDark, MentorsDark, FooterDark, StartUpForDark
+from locators.Locators import AboutUsDark, ProjectsDark, MentorsDark, FooterDark, StartUpForDark, StayConnectedDark
 
 
 class LandingPage(BasePage):
@@ -26,6 +26,7 @@ class LandingPage(BasePage):
         self.start_up_locators = StartUpForDark
         self.help_project_locators = HelpProjectDark
         self.footer_locators = FooterDark
+        self.stay_connected = StayConnectedDark
 
     def click_join_button_header(self):
         """ Метод возвращает нажатие на кнопку присоединиться в шапке сайта """
