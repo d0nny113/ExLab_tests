@@ -91,12 +91,6 @@ class BasePage(object):
     def wait_load_wind(self):
         return WebDriverWait(self.driver, 5).until(exp_cond.new_window_is_opened(self.driver.window_handles))
 
-    def alert(self):
-        if WebDriverWait(self.driver, 5).until(exp_cond.alert_is_present()):
-            return True
-        else:
-            return False
-
     def element_text(self, how, what):
         elements = self.driver.find_elements(how, what)
         print(f'Количество элементов {len(elements)} \n')

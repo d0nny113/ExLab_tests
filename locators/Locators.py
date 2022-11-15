@@ -10,6 +10,7 @@ class BaseLocators(object):
     light_theme = 'sc-fnykZs lfkjFc'
     button_theme = (By.CSS_SELECTOR, '.sc-ksZaOG.bxLYUZ')
 
+
 class HeaderDark(object):
 
     menu_group = (By.XPATH, '//div[@class="sc-breuTD eGIhIU"]')
