@@ -4,7 +4,7 @@ doc folder contains checklist
 
 command to run all tests:
 
-                tests/test_LandingPage.py
+                pytest tests/test_LandingPage.py
 
 
 
