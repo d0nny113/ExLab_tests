@@ -8,7 +8,7 @@ command to run all tests:
 
 
 
-Supports console options for example:
+Supports console options:
 
 --browser_name=chrome  (firefox or chrome or yandex)
 
@@ -19,3 +19,7 @@ Supports console options for example:
 --width_window=1920  (default='1920')
 
 --height_window=1080  (default='1080')
+
+for example:
+
+               pytest tests/test_LandingPage.py --browser_name=firefox --headless=true
