@@ -1,4 +1,4 @@
-## 🌈 Here you will find tests for the landing page of the Exlab project
+## 🌈 Here you will find tests for the landing page of the Exlab project!
 
 doc folder contains checklist
 
