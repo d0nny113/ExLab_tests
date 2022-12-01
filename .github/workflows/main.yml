@@ -1,6 +1,6 @@
 
     # название
-name: Project test & build
+name: Project test
 
 # целевые события для запуска
 # в данном случае это push и pull_request, в ветку master
@@ -12,22 +12,24 @@ on:
 
 # выполняемые действия
 jobs:
-  build-and-deploy:
+  Runs-tests:
     runs-on: ubuntu-latest
     
     # запускаются по шагам
     # name - название шага
     # в github actions будет выводиться название шага, и процессы
     steps:
-           
-    - name: Install dependencies
-      run: |
-           python -m pip install --upgrade pip
-           pip install -r requirements.txt
-    - name: Test with pytest
-      run: |
-        pip install pytest
-        pip install pytest-cov
-        pytest tests/test_LandingPage.py 
+          - uses: actions/checkout@v3
+          - name: Set up Python
+            uses: actions/setup-python@v4
+            with:
+                 python-version: '3.x'
+          - name: Install dependencies
+            run: |
+                   python -m pip install --upgrade pip
+                   pip install -r requirements.txt
+          - name: Test with pytest
+            run: |
+                   pytest tests/test_LandingPage.py 
       
       
