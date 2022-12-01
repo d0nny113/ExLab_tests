@@ -13,7 +13,7 @@ def pytest_addoption(parser):
 
     parser.addoption('--language', action='store', default='en',
                      help="Choose language: 'ru' or 'en'")
-    parser.addoption('--headless', action='store', default='true',
+    parser.addoption('--headless', action='store', default='None',
                      help="Open a browser invisible, without GUI is used by default")
 
 
