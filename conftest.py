@@ -61,25 +61,12 @@ def browser(request):
         browser.set_window_size(width_window, height_window)
         browser.implicitly_wait(10)  # Не явное ожидание элементов 10 сек.
 
-    elif browser_name == "yandex":
-        options = Options()
-        if headless == 'true':
-            options.add_argument('headless')
-
-        service = Service("C:\web_drivers\chromedriver_104\chromedriver.exe")
-        options.binary_location = "C:/Users/d0nny113/AppData/Local/Yandex/YandexBrowser/Application/browser.exe"
-
-        # // Отключение сообщений в консоли типа: USB: usb_device_handle...
-        options.add_experimental_option('excludeSwitches', ['enable-logging'])
-        browser = webdriver.Chrome(options=options, service=service)
-        browser.set_window_size(width_window, height_window)
-        browser.implicitly_wait(10)
-
     else:
         raise pytest.UsageError("--browser_name should be chrome or firefox or yandex")
     yield browser
     print("\nquit browser..")
     browser.quit()
+
 
 @pytest.fixture(autouse=True)
 def time_delta():
@@ -95,7 +82,3 @@ def time_delta():
 # --width_window=(default='1920')
 # --height_window=(default='1080')
 
-''' 
-pytest -v -s  --tb=line --reruns 1  --browser_name=chrome --width_window=1024 --height_window=768
---language=ru --headless=true   test_product_page.py
-'''
