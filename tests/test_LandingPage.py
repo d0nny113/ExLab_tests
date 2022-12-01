@@ -51,7 +51,7 @@ class TestLanding:
         assert landing_page.check_link_href(landing_page.header_locators.link_mentors, href_link), \
             ' ↑ Ссылка Менторы ведет на экран с заголовком Менторы'
 
-    def test6(self, browser):
+    '''def test6(self, browser):
         landing_page = LandingPage(browser)
         href_link = landing_page.base_locators.LANDING_LINK + '#startup'
         assert landing_page.check_link_href(landing_page.header_locators.link_startup, href_link), \
@@ -247,7 +247,7 @@ class TestLanding:
     def test28(self, browser):
         landing_page = LandingPage(browser)
         assert landing_page.is_element_displayed(landing_page.footer_locators.mailto), \
-            '↑ Отображение ссылки info@exlab.team '
+            '↑ Отображение ссылки info@exlab.team ' '''
 
 
 
