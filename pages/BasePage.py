@@ -1,7 +1,7 @@
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as exp_cond
-from selenium.common import NoSuchElementException, TimeoutException
-from selenium.webdriver.support.wait import WebDriverWait
+from selenium.common import NoSuchElementException, TimeoutException, JavascriptException
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 class BasePage(object):
@@ -70,17 +70,8 @@ class BasePage(object):
             return False
         return True
 
-    def find_elem(self, locator: tuple) -> WebElement:
-        return WebDriverWait(self.driver, 10).until(self.driver.find_elements(locator))
-
-    def what_about_color(self, color: str):
-        removed_chars = ['(', ',', ')', 'r', 'g', 'b', 'a']
-        chars = set(removed_chars)
-        color = ''.join(c for c in color if c not in chars)
-        res = list(color.split(' '))
-        r, g, b = res[0], res[1], res[2]
-        answer = [r, g, b]
-        return answer
+    def find_elem(self, locator: tuple):
+        return WebDriverWait(self.driver, 10).until(self.driver.find_element(locator))
 
     def click(self, element):
         return self.driver.execute_script("arguments[0].click();", element)

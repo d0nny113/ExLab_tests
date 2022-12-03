@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 
 class BaseLocators(object):
 
-    LANDING_LINK = 'http://test.exlab.team/'
+    LANDING_LINK = 'https://exlab.team/'
     LOGO_PIC_EXLAB = (By.XPATH, '//div[@id="logo_mobile"]')
     CONTAINER = (By.XPATH, '//div[@id="root"]')
     dark_theme = 'sc-fnykZs fEkGUM'
@@ -38,67 +38,70 @@ class HeaderLight:
 
 class OpportunityDark:
 
-    logo_exlab = (By.XPATH, '//img[@class="sc-dIouRR iBavKg"]')
-    header_opportunity = (By.CSS_SELECTOR, 'div.sc-kgflAQ.gupdxc')
-    footer_opportunity = (By.XPATH, '//span[@class="sc-kLLXSd fHrUpO"]')
-    text_opportunity = (By.XPATH, '//div[@class="sc-bBrHrO lmeoyY"]')
+    logo_exlab = (By.CSS_SELECTOR, 'div.sc-jSMfEi.ktArbA')
+    header_opportunity = (By.CSS_SELECTOR, 'div.sc-dmRaPn.ljhwJa')
+    text_opportunity = (By.XPATH, '//div[@class="sc-kgflAQ gUFAgN"]')
 
 
 class AboutUsDark:
 
     header_o_nas = (By.CSS_SELECTOR, '#about div')
-    text_o_nas = (By.XPATH, '//p[@class="sc-cCsOjp cdaqyF"]')
-    why_exlab_header = (By.XPATH, '//div[@class="sc-bZnhIo CLhmH"]')
-    why_exlab_text = (By.XPATH, '//ol[@class="sc-iAvgwm fQGFrP"]')
-    why_exlab_join_button = (By.XPATH, '//a[@class="sc-dkzDqf gpYSxm"]')
+    text_o_nas = (By.XPATH, '//p[@class="sc-himrzO bgsrpw"]')
+    why_exlab_header = (By.XPATH, '//div[@class="sc-ciZhAO fBFmnR"]')
+    why_exlab_text = (By.XPATH, '//ol[@class="sc-bZnhIo fYGDkJ"]')
+    why_exlab_join_button = (By.XPATH, '//a[@class="sc-dkzDqf dEddqP"]')
 
 
 class ProjectsDark:
 
     header_projects = (By.CSS_SELECTOR, '#projects div')
-    logo_projects_pics = (By.XPATH, '//img[@class="sc-bBXxYQ hEflMO"]')
-    projects_text = (By.XPATH, '//p[@class="sc-cOFTSb bNtNdQ"]')
+    logo_projects_pics = (By.CSS_SELECTOR, 'img.sc-jOrMOR.eGXkMj')
+    projects_text = (By.XPATH, '//p[@class="sc-dPyBCJ elZmsx"]')
 
 
 class HelpProjectDark:
 
-    header = (By.CSS_SELECTOR, '.sc-jTYCaT.NkTuJ div')
-    text = (By.XPATH, '//div[@class="sc-fctJkW fddeaE"]')
-    link_boosty = (By.XPATH, '//a[@class="sc-dkzDqf gpYSxm" and contains(text(), "Boosty")]')
+    header = (By.CSS_SELECTOR, '.sc-jTYCaT.coDMnK')
+    text = (By.XPATH, '//div[@class="sc-HzFiz fvqpxc"]')
+    link_boosty = (By.XPATH, '//a[@class="sc-dkzDqf dEddqP" and contains(text(), "Boosty")]')
     link_patreon = (By.XPATH, '//a[@class="sc-hKMtZM etdNbW" and contains(text(), "Patreon")]')
 
 
 class StayConnectedDark:
 
-    header = (By.CSS_SELECTOR, '.sc-tsFYE.tOJRS div')
-    text = (By.CSS_SELECTOR, '.sc-bhVIhj.iBINeU')
+    header = (By.CSS_SELECTOR, '.sc-bhVIhj.uaVnA')
+    text = (By.CSS_SELECTOR, '.sc-eGAhfa.cacMWv')
 
 
 class MentorsDark:
 
     header_mentors = (By.CSS_SELECTOR, '#mentors div')
-    mentors_card = (By.XPATH, '//div[@class="sc-jOhDuK jCfVZq"]')
-    mentor_photo = (By.CSS_SELECTOR, 'div.sc-kIKDeO.hGmlWc img')
-    mentor_text = (By.CSS_SELECTOR, 'div.sc-kIKDeO.hGmlWc ul')
+    mentors_card = (By.CSS_SELECTOR, '.sc-jIAOiI.eSpxWu')
+    mentor_photo = (By.CSS_SELECTOR, 'div.sc-bUbCnL.fJhsUc img')
+
+    mentor_text = (By.CSS_SELECTOR, 'div.sc-bUbCnL.fJhsUc ul')
     mentors_button = (By.CSS_SELECTOR, 'span')
-    mentors_name = (By.CSS_SELECTOR, 'p.sc-hlnMnd.hNVIjG')
-    test_test = (By.XPATH, '//span[@class="sc-hTtwUo nouGC"]')
+    mentors_name = (By.CSS_SELECTOR, 'p.sc-jOhDuK.efeKUw')
+
 
 
 class StartUpForDark:
 
     header = (By.CSS_SELECTOR, '#startup div')
-    text = (By.XPATH, '//div[@class="sc-jfmDQi gAwNCm"]')
+    text = (By.XPATH, '//p[@class="sc-gFGZVQ eMPtDU"]')
 
 
 class FooterDark:
 
     footer_links = (By.XPATH, '//li[@class="sc-dkdnUF fbGNMP"]')
     footer_logo = (By.CSS_SELECTOR, '.sc-fIavCj.fEzmxG')
-    footer_text_under_logo = (By.CSS_SELECTOR, '.sc-evrZIY.hdIkLU')
+    footer_text_under_logo = (By.CSS_SELECTOR, '.sc-gITdmR.hYaavu')
     link_lnkdn = (By.XPATH, '//a[@class="sc-WCkqM gwMRik" and contains(text(), "lnkdn")]')
     link_instgrm = (By.XPATH, '//a[@class="sc-WCkqM gwMRik" and contains(text(), "instgrm")]')
     link_tlgrm = (By.XPATH, '//a[@class="sc-WCkqM gwMRik" and contains(text(), "tlgrm")]')
     link_ytb = (By.XPATH, '//a[@class="sc-WCkqM gwMRik" and contains(text(), "ytb")]')
-    mailto = (By.CSS_SELECTOR, '.sc-ikjQzJ.gjCqBu')
+    mailto = (By.XPATH, '//a[@class="sc-ikjQzJ gjCqBu"]')
 
+class TestTest:
+
+    footer = (By.CSS_SELECTOR, '.sc-brCFrObGFIzb')

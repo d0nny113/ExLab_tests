@@ -1,10 +1,7 @@
-import time
-
 from selenium.common import NoSuchElementException
-from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from pages.BasePage import BasePage
-from locators.Locators import BaseLocators, HeaderDark, OpportunityDark, HeaderLight, HelpProjectDark
+from locators.Locators import BaseLocators, HeaderDark, OpportunityDark, HeaderLight, HelpProjectDark, TestTest
 from locators.Locators import AboutUsDark, ProjectsDark, MentorsDark, FooterDark, StartUpForDark, StayConnectedDark
 
 
@@ -27,6 +24,7 @@ class LandingPage(BasePage):
         self.help_project_locators = HelpProjectDark
         self.footer_locators = FooterDark
         self.stay_connected = StayConnectedDark
+        self.test = TestTest
 
     def click_join_button_header(self):
         """ Метод возвращает нажатие на кнопку присоединиться в шапке сайта """
@@ -72,7 +70,15 @@ class LandingPage(BasePage):
             if link_name == link.text:
                 link.find_element(By.LINK_TEXT, link_name).click()
 
-
+    def what_about_color(self, color: str):
+        """ Метод цифры цвета R, G, B   """
+        removed_chars = ['(', ',', ')', 'r', 'g', 'b', 'a']
+        chars = set(removed_chars)
+        color = ''.join(c for c in color if c not in chars)
+        res = list(color.split(' '))
+        r, g, b = res[0], res[1], res[2]
+        answer = [r, g, b]
+        return answer
 
 
 
