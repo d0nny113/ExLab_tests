@@ -1,5 +1,7 @@
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as exp_cond
 from pages.BasePage import BasePage
 from locators.Locators import BaseLocators, HeaderDark, OpportunityDark, HeaderLight, HelpProjectDark, TestTest
 from locators.Locators import AboutUsDark, ProjectsDark, MentorsDark, FooterDark, StartUpForDark, StayConnectedDark
@@ -80,9 +82,26 @@ class LandingPage(BasePage):
         answer = [r, g, b]
         return answer
 
+    def element_text(self, how, what):  # писал как пример для кого-то и забыл для кого
+        """ ?????  """
+        elements = self.driver.find_elements(how, what)
+        print(f'Количество элементов {len(elements)} \n')
+        elm_count = 1
+        for element in elements:
+            if element.text:
+                print(f'успешно проверен {elm_count} элемент, внутри тега {element.tag_name} есть текст \n')
+            elm_count += 1
+        else:
+            print(f'внутри {elm_count} текста нет')
 
-
-
+    def check_link_href(self, locator, href):
+        """ Метод проверяет аттрибут href у элемента по заданному локатору"""
+        element = WebDriverWait(self, 10).until(exp_cond.presence_of_element_located(locator))
+        element_href = element.get_property('href')
+        if element_href == href:
+            return True
+        else:
+            return False
 
 
 

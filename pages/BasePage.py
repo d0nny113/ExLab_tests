@@ -1,6 +1,6 @@
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as exp_cond
-from selenium.common import NoSuchElementException, TimeoutException, JavascriptException
+from selenium.common import NoSuchElementException, TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 
 
@@ -55,39 +55,17 @@ class BasePage(object):
             return False
         return True
 
-    def check_link_href(self, locator, href):
-        element = WebDriverWait(self, 10).until(exp_cond.presence_of_element_located(locator))
-        element_href = element.get_property('href')
-        if element_href == href:
-            return True
-        else:
-            return False
-
     def is_elements_displayed(self, locator):
         try:
-            WebDriverWait(self, 10).until(exp_cond.presence_of_all_elements_located(locator))
+            WebDriverWait(self, 10).until(exp_cond.visibility_of_all_elements_located(locator))
         except TimeoutException:
             return False
         return True
 
-    def find_elem(self, locator: tuple):
-        return WebDriverWait(self.driver, 10).until(self.driver.find_element(locator))
-
     def click(self, element):
         return self.driver.execute_script("arguments[0].click();", element)
 
-    def wait_load_wind(self):
-        return WebDriverWait(self.driver, 5).until(exp_cond.new_window_is_opened(self.driver.window_handles))
 
-    def element_text(self, how, what):
-        elements = self.driver.find_elements(how, what)
-        print(f'Количество элементов {len(elements)} \n')
-        elm_count = 1
-        for element in elements:
-            if element.text:
-                print(f'успешно проверен {elm_count} элемент, внутри тега {element.tag_name} есть текст \n')
-            elm_count += 1
-        else:
-            print(f'внутри {elm_count} текста нет')
+
 
 

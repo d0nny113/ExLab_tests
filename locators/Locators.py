@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 
 class BaseLocators(object):
 
-    LANDING_LINK = 'https://exlab.team/'
+    LANDING_LINK = 'http://test.exlab.team/'
     LOGO_PIC_EXLAB = (By.XPATH, '//div[@id="logo_mobile"]')
     CONTAINER = (By.XPATH, '//div[@id="root"]')
     dark_theme = 'sc-fnykZs fEkGUM'
@@ -62,7 +62,7 @@ class ProjectsDark:
 class HelpProjectDark:
 
     header = (By.CSS_SELECTOR, '.sc-jTYCaT.coDMnK')
-    text = (By.XPATH, '//div[@class="sc-HzFiz fvqpxc"]')
+    text = (By.XPATH, '//div[@class="sc-fctJkW gfwicC"]')
     link_boosty = (By.XPATH, '//a[@class="sc-dkzDqf dEddqP" and contains(text(), "Boosty")]')
     link_patreon = (By.XPATH, '//a[@class="sc-hKMtZM etdNbW" and contains(text(), "Patreon")]')
 
@@ -83,12 +83,15 @@ class MentorsDark:
     mentors_button = (By.CSS_SELECTOR, 'span')
     mentors_name = (By.CSS_SELECTOR, 'p.sc-jOhDuK.efeKUw')
 
+    stand_mentors_but = (By.CSS_SELECTOR, 'div.sc-dwLEzm.kIwrdA a')
 
 
 class StartUpForDark:
 
     header = (By.CSS_SELECTOR, '#startup div')
-    text = (By.XPATH, '//p[@class="sc-gFGZVQ eMPtDU"]')
+    text_juniors = (By.XPATH, '//div[@class="sc-jfmDQi jtqNlU"]')
+    text_hr = (By.XPATH, '//div[@class="sc-ehmTmK hNtRAb"]')
+    find_specialist_but = (By.CSS_SELECTOR, 'div.sc-fbPSWO.dEooHG a')
 
 
 class FooterDark:

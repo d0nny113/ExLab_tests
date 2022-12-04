@@ -1,270 +1,275 @@
-import time
+
 import pytest
+import allure
+
 from pages.LandingPage import LandingPage
 
 
 class TestLanding:
 
-    def test1(self, browser, time_delta):
+    @pytest.fixture()
+    def landing_page(self, browser):
         landing_page = LandingPage(browser)
-        assert landing_page.check_url(browser.current_url), \
-            ' ↑ Лендинг ExLab доступен по адресу http://test.exlab.team/'
-        assert landing_page.check_theme() == 'Dark', \
-            ' ↑ По умолчанию открывается темная тема лендинга'
+        yield landing_page
 
-    def test2(self, browser):
-        landing_page = LandingPage(browser)
-        assert landing_page.is_element_displayed(landing_page.base_locators.LOGO_PIC_EXLAB), \
-            ' ↑ Отображение логотипа ExLab'
+    def test1(self, browser, time_delta, landing_page):
+        with allure.step('Лендинг ExLab доступен по правильному адресу'):
+            assert landing_page.check_url(browser.current_url)
+        with allure.step('По умолчанию открывается темная тема лендинга'):
+            assert landing_page.check_theme() == 'Dark'
 
-    def test3(self, browser):
-        landing_page = LandingPage(browser)
+    def test2(self, landing_page):
+        with allure.step('Отображение логотипа ExLab'):
+            assert landing_page.is_element_displayed(landing_page.base_locators.LOGO_PIC_EXLAB)
+
+    def test3(self, landing_page):
         href_link = landing_page.base_locators.LANDING_LINK + '#about'
-        assert landing_page.check_link_href(landing_page.header_locators.link_o_nas, href_link), \
-            ' ↑ Ссылка О нас ведет на экран с заголовком О нас'
-        assert landing_page.is_element_displayed(landing_page.header_locators.link_o_nas),  \
-            ' ↑ Ссылка О нас отображается'
-        assert landing_page.is_element_clickable(landing_page.header_locators.link_o_nas), \
-            ' ↑ Ссылка О нас кликабельна'
+        with allure.step('Ссылка О нас ведет на экран с заголовком О нас'):
+            assert landing_page.check_link_href(landing_page.header_locators.link_o_nas, href_link)
+        with allure.step('Ссылка О нас отображается'):
+            assert landing_page.is_element_displayed(landing_page.header_locators.link_o_nas)
+        with allure.step('Ссылка О нас кликабельна'):
+            assert landing_page.is_element_clickable(landing_page.header_locators.link_o_nas)
 
-    def test4(self, browser):
-        landing_page = LandingPage(browser)
+    def test4(self, landing_page):
         href_link = landing_page.base_locators.LANDING_LINK + '#projects'
-        assert landing_page.check_link_href(landing_page.header_locators.link_projects, href_link), \
-            ' ↑ Ссылка Проекты ведет на экран с заголовком Проекты'
-        assert landing_page.is_element_displayed(landing_page.header_locators.link_projects),  \
-            ' ↑ Ссылка Проекты отображается'
-        assert landing_page.is_element_clickable(landing_page.header_locators.link_projects),  \
-            ' ↑ Ссылка Проекты кликабельна'
+        with allure.step('Ссылка Проекты ведет на экран с заголовком Проекты'):
+            assert landing_page.check_link_href(landing_page.header_locators.link_projects, href_link)
+        with allure.step('Ссылка Проекты отображается'):
+            assert landing_page.is_element_displayed(landing_page.header_locators.link_projects)
+        with allure.step('Ссылка Проекты кликабельна'):
+            assert landing_page.is_element_clickable(landing_page.header_locators.link_projects)
 
-    def test5(self, browser):
-        landing_page = LandingPage(browser)
+    def test5(self, landing_page):
         href_link = landing_page.base_locators.LANDING_LINK + '#mentors'
-        assert landing_page.is_element_displayed(landing_page.header_locators.link_mentors), \
-            ' ↑ Ссылка Менторы отображается'
-        assert landing_page.is_element_clickable(landing_page.header_locators.link_mentors), \
-            ' ↑ Ссылка Менторы кликабельна'
-        assert landing_page.check_link_href(landing_page.header_locators.link_mentors, href_link), \
-            ' ↑ Ссылка Менторы ведет на экран с заголовком Менторы'
+        with allure.step('Ссылка Менторы отображается'):
+            assert landing_page.is_element_displayed(landing_page.header_locators.link_mentors)
+        with allure.step('Ссылка Менторы кликабельна'):
+            assert landing_page.is_element_clickable(landing_page.header_locators.link_mentors)
+        with allure.step('Ссылка Менторы ведет на экран с заголовком Менторы'):
+            assert landing_page.check_link_href(landing_page.header_locators.link_mentors, href_link)
 
-    def test6(self, browser):
-        landing_page = LandingPage(browser)
+    def test6(self, landing_page):
         href_link = landing_page.base_locators.LANDING_LINK + '#startup'
-        assert landing_page.check_link_href(landing_page.header_locators.link_startup, href_link), \
-            ' ↑ Ссылка StartUP ведет на экран с заголовком StartUp для'
-        assert landing_page.is_element_displayed(landing_page.header_locators.link_startup), \
-            ' ↑ Ссылка StartUP отображается'
-        assert landing_page.is_element_clickable(landing_page.header_locators.link_startup), \
-            ' ↑ Ссылка StartUP кликабельна'
+        with allure.step('Ссылка StartUP ведет на экран с заголовком StartUp для'):
+            assert landing_page.check_link_href(landing_page.header_locators.link_startup, href_link)
+        with allure.step('Ссылка StartUP отображается'):
+            assert landing_page.is_element_displayed(landing_page.header_locators.link_startup)
+        with allure.step('Ссылка StartUP кликабельна'):
+            assert landing_page.is_element_clickable(landing_page.header_locators.link_startup)
 
-    def test7(self, browser):
-        landing_page = LandingPage(browser)
-        assert landing_page.is_element_displayed(landing_page.header_locators.button_theme), \
-            ' ↑ Проверка отображения кнопки переключения темы пользовательского интерфейса Sun Icon'
-        landing_page.wait_until_clickable(landing_page.header_locators.button_theme).click()
-        assert landing_page.check_theme() == 'Light', \
-            ' ↑ При нажатии на переключатель, тема сайта меняется на светлую'
+    def test7(self, landing_page):
+        with allure.step('Проверка отображения кнопки переключения темы пользовательского интерфейса Sun Icon'):
+            assert landing_page.is_element_displayed(landing_page.header_locators.button_theme)
+        with allure.step('При нажатии на переключатель, тема сайта меняется на светлую'):
+            landing_page.wait_until_clickable(landing_page.header_locators.button_theme).click()
+            assert landing_page.check_theme() == 'Light'
 
     @pytest.mark.xfail   # ПАДАЮЩИЙ ТЕСТ, ФУНКЦИОНАЛ НЕ ЗАВЕЗЛИ
     def test8(self, browser):
         landing_page = LandingPage(browser)
 
-    def test9(self, browser):   # нужно поправить для FireFox
-        landing_page = LandingPage(browser)
+    def test9(self, browser, landing_page):   # нужно поправить для FireFox
         href = 'https://t.me/ExLab_registration_bot'
-        assert landing_page.is_element_displayed(landing_page.header_locators.button_join), \
-            ' ↑ Отображение кнопки [Присоединиться]'
-        assert landing_page.is_element_clickable(landing_page.header_locators.button_join), \
-            ' ↑ Кнопка кликабельна'
-        landing_page.wait_until_clickable(landing_page.header_locators.button_join).click()
-        browser.switch_to.window(browser.window_handles[1])
-        assert browser.current_url == href, 'При нажатии на кнопку [Присоединиться] открывается форма регистрации'
+        with allure.step('Отображение кнопки [Присоединиться]'):
+            assert landing_page.is_element_displayed(landing_page.header_locators.button_join)
+        with allure.step('Кнопка кликабельна'):
+            assert landing_page.is_element_clickable(landing_page.header_locators.button_join)
+        with allure.step('При нажатии на кнопку [Присоединиться] открывается форма регистрации'):
+            landing_page.wait_until_clickable(landing_page.header_locators.button_join).click()
+            browser.switch_to.window(browser.window_handles[1])
+            assert browser.current_url == href
 
-    def test10(self, browser):
-        landing_page = LandingPage(browser)
+    def test10(self, landing_page):
         q = landing_page.return_element(landing_page.header_locators.link_o_nas).location['y']
         w = landing_page.return_element(landing_page.header_locators.link_startup).location['y']
         e = landing_page.return_element(landing_page.header_locators.link_mentors).location['y']
         r = landing_page.return_element(landing_page.header_locators.link_projects).location['y']
-        assert q == w == e == r, \
-            ' ↑  ссылка О нас, Проекты, Менторы, StartUp для,  находятся на одной линии'
+        with allure.step('О нас, Проекты, Менторы, StartUp для,  находятся на одной линии'):
+            assert q == w == e == r
 
-    def test11(self, browser):
-        landing_page = LandingPage(browser)
-        browser.find_element(*landing_page.opportunity_locators.logo_exlab).screenshot('123.jpg')
-        assert landing_page.is_element_displayed(landing_page.opportunity_locators.logo_exlab), \
-            ' ↑ Отображение логотипа  ExLab в блоке "Твоя возможность"'
+    def test11(self, landing_page):
+        landing_page.find_element(*landing_page.opportunity_locators.logo_exlab).screenshot('temp.jpg')
+        with allure.step('Отображение логотипа  ExLab в блоке "Твоя возможность"'):
+            assert landing_page.is_element_displayed(landing_page.opportunity_locators.logo_exlab)
 
-    def test12(self, browser):
-        landing_page = LandingPage(browser)
-        browser.find_element(*landing_page.opportunity_locators.header_opportunity).screenshot('123.jpg')
-        assert landing_page.is_element_displayed(landing_page.opportunity_locators.header_opportunity), \
-            ' ↑ Отображение надписи Твоя возможность'
-        browser.find_element(*landing_page.opportunity_locators.text_opportunity).screenshot('124.jpg')
-        assert landing_page.is_element_displayed(landing_page.opportunity_locators.text_opportunity), \
-            ' ↑ Отображение текста под надписью Твоя возможность'
+    def test12(self, landing_page):
+        landing_page.find_element(*landing_page.opportunity_locators.header_opportunity).screenshot('temp.jpg')
+        with allure.step('Отображение надписи Твоя возможность'):
+            assert landing_page.is_element_displayed(landing_page.opportunity_locators.header_opportunity)
+        landing_page.find_element(*landing_page.opportunity_locators.text_opportunity).screenshot('temp.jpg')
+        with allure.step('Отображение текста под надписью Твоя возможность'):
+            assert landing_page.is_element_displayed(landing_page.opportunity_locators.text_opportunity)
 
-    def test13(self, browser):
-        landing_page = LandingPage(browser)
-        browser.find_element(*landing_page.about_us_locators.header_o_nas).screenshot('123.jpg')
-        assert landing_page.is_element_displayed(landing_page.about_us_locators.header_o_nas), \
-            ' ↑ Отображение надписи О нас'
-        browser.find_element(*landing_page.about_us_locators.text_o_nas).screenshot('124.jpg')
-        assert landing_page.is_element_displayed(landing_page.about_us_locators.text_o_nas), \
-            ' ↑ Отображение текста под надписью О нас'
+    def test13(self, browser, landing_page):
+        browser.find_element(*landing_page.about_us_locators.header_o_nas).screenshot('temp.jpg')
+        with allure.step('Отображение надписи О нас'):
+            assert landing_page.is_element_displayed(landing_page.about_us_locators.header_o_nas)
+        browser.find_element(*landing_page.about_us_locators.text_o_nas).screenshot('temp.jpg')
+        with allure.step('Отображение текста под надписью О нас'):
+            assert landing_page.is_element_displayed(landing_page.about_us_locators.text_o_nas)
 
-    def test14(self, browser):
-        landing_page = LandingPage(browser)
-        browser.find_element(*landing_page.about_us_locators.why_exlab_header).screenshot('123.jpg')
-        assert landing_page.is_element_displayed(landing_page.about_us_locators.why_exlab_header), \
-            ' ↑ Отображение надписи Почему ExLab?'
-        browser.find_element(*landing_page.about_us_locators.why_exlab_text).screenshot('124.jpg')
-        assert landing_page.is_element_displayed(landing_page.about_us_locators.why_exlab_text), \
-            ' ↑ Отображение текста под надписью Почему ExLab?'
+    def test14(self, landing_page):
+        landing_page.find_element(*landing_page.about_us_locators.why_exlab_header).screenshot('temp.jpg')
+        with allure.step('Отображение надписи "Почему ExLab?" '):
+            assert landing_page.is_element_displayed(landing_page.about_us_locators.why_exlab_header)
+        landing_page.find_element(*landing_page.about_us_locators.why_exlab_text).screenshot('temp.jpg')
+        with allure.step('Отображение текста под надписью "Почему ExLab?" '):
+            assert landing_page.is_element_displayed(landing_page.about_us_locators.why_exlab_text)
 
-    def test15(self, browser):
-        landing_page = LandingPage(browser)
+    def test15(self, browser, landing_page):
         href = 'https://t.me/ExLab_registration_bot'
-        browser.find_element(*landing_page.about_us_locators.why_exlab_join_button).screenshot('123.jpg')
-        assert landing_page.is_element_displayed(landing_page.about_us_locators.why_exlab_join_button), \
-            ' ↑ Отображение кнопки [Присоединиться]'
-        assert landing_page.is_element_clickable(landing_page.about_us_locators.why_exlab_join_button), \
-            ' ↑ Кнопка кликабельна'
+        landing_page.find_element(*landing_page.about_us_locators.why_exlab_join_button).screenshot('temp.jpg')
+        with allure.step('Отображение кнопки [Присоединиться]'):
+            assert landing_page.is_element_displayed(landing_page.about_us_locators.why_exlab_join_button)
+        with allure.step('Кнопка кликабельна'):
+            assert landing_page.is_element_clickable(landing_page.about_us_locators.why_exlab_join_button)
         landing_page.wait_until_clickable(landing_page.about_us_locators.why_exlab_join_button).click()
         browser.switch_to.window(browser.window_handles[1])
-        assert browser.current_url == href, 'При нажатии на кнопку [Присоединиться] открывается форма регистрации'
+        with allure.step('При нажатии на кнопку [Присоединиться] открывается форма регистрации'):
+            assert browser.current_url == href
 
-    def test16(self, browser):
-        landing_page = LandingPage(browser)
-        browser.find_element(*landing_page.project_locators.header_projects).screenshot('123.jpg')
-        assert landing_page.is_element_displayed(landing_page.project_locators.header_projects), \
-            ' ↑ Отображение надписи Проекты'
+    def test16(self, landing_page):
+        landing_page.find_element(*landing_page.project_locators.header_projects).screenshot('temp.jpg')
+        with allure.step('Отображение надписи Проекты'):
+            assert landing_page.is_element_displayed(landing_page.project_locators.header_projects)
 
-    def test17(self, browser):
-        landing_page = LandingPage(browser)
-        browser.find_element(*landing_page.project_locators.logo_projects_pics).screenshot('123.jpg')
-        assert landing_page.is_elements_displayed(landing_page.project_locators.logo_projects_pics), \
-            ' ↑ Отображение логотипов ExLab, HealthyLife, Easyhelp в блоке'
-        browser.find_element(*landing_page.project_locators.projects_text).screenshot('124.jpg')
-        assert landing_page.is_elements_displayed(landing_page.project_locators.projects_text), \
-            ' ↑ Отображение текста в описании проекта ExLab, HealthyLife, Easyhelp'
+    def test17(self, landing_page):
+        logos = landing_page.find_elements(*landing_page.project_locators.logo_projects_pics)
+        for logo in logos:
+            logo.screenshot('temp.jpg')
+            with allure.step('Отображение логотипов ExLab, HealthyLife, Easyhelp в блоке'):
+                assert logo.is_displayed()
+        texts = landing_page.find_elements(*landing_page.project_locators.projects_text)
+        for text in texts:
+            text.screenshot('temp.jpg')
+            with allure.step('Отображение текста в описании проекта ExLab, HealthyLife, Easyhelp'):
+                assert text.is_displayed()
 
-    def test18(self, browser, time_delta):
-        landing_page = LandingPage(browser)
-        mentors_card = browser.find_elements(*landing_page.mentors_locators.mentors_card)
+    def test18(self, landing_page):  # тест не доделан, кнопка никуда не ведет!!
+        href = landing_page.base_locators.LANDING_LINK + '#'
+        mentors_card = landing_page.find_elements(*landing_page.mentors_locators.mentors_card)
         for mentor in mentors_card:
             button = mentor.find_element(*landing_page.mentors_locators.mentors_button)
             landing_page.click(button)
-            assert button.get_attribute('class').split(' ')[1] == 'gGHWQo', \
-                ' ↑ При нажатии на область ментора (при закрытом спойлере) спойлер открывается'
-            browser.find_element(*landing_page.mentors_locators.mentor_photo).screenshot('123.jpg')
-            assert landing_page.is_element_displayed(landing_page.mentors_locators.mentor_photo), \
-                ' ↑  Фотография ментора  отображается'
-            browser.find_element(*landing_page.mentors_locators.mentor_text).screenshot('124.jpg')
-            assert landing_page.is_element_displayed(landing_page.mentors_locators.mentor_text), \
-                ' ↑ При открытом спойлере отображается информации о менторе '
+            with allure.step('При нажатии на область ментора (при закрытом спойлере) спойлер открывается'):
+                assert button.get_attribute('class').split(' ')[1] == 'gGHWQo'
+            landing_page.find_element(*landing_page.mentors_locators.mentor_photo).screenshot('temp.jpg')
+            with allure.step('Фотография ментора  отображается'):
+                assert landing_page.is_element_displayed(landing_page.mentors_locators.mentor_photo)
+            landing_page.find_element(*landing_page.mentors_locators.mentor_text).screenshot('temp.jpg')
+            with allure.step('При открытом спойлере отображается информации о менторе'):
+                assert landing_page.is_element_displayed(landing_page.mentors_locators.mentor_text)
             landing_page.click(button)
-            assert button.get_attribute('class').split(' ')[1] == 'cFcyNJ', \
-                ' ↑ При нажатии на область ментора (при развернутом спойлере) спойлер закрывается'
+            with allure.step('При нажатии на область ментора (при развернутом спойлере) спойлер закрывается'):
+                assert button.get_attribute('class').split(' ')[1] == 'cFcyNJ'
+        landing_page.find_element(*landing_page.mentors_locators.stand_mentors_but).screenshot('temp.jpg')
+        with allure.step('Кнопка "Стать ментором" ????? '):
+            assert landing_page.check_link_href(landing_page.mentors_locators.stand_mentors_but, href)
 
-    def test19(self, browser):
-        landing_page = LandingPage(browser)
-        browser.find_element(*landing_page.start_up_locators.header).screenshot('123.jpg')
-        assert landing_page.is_element_displayed(landing_page.start_up_locators.header), \
-               '↑ Отображение заголовка StartUp для'
-        browser.find_element(*landing_page.start_up_locators.text).screenshot('123.jpg')
-        assert landing_page.is_element_displayed(landing_page.start_up_locators.text), \
-               '↑ Отображение текста в блоке'
+    def test19(self, landing_page):   # тест не доделан, кнопка никуда не ведет!!
+        href = landing_page.base_locators.LANDING_LINK + '#'
+        landing_page.find_element(*landing_page.start_up_locators.header).screenshot('temp.jpg')
+        with allure.step('Отображение заголовка StartUp для'):
+            assert landing_page.is_element_displayed(landing_page.start_up_locators.header)
+        texts_jun = landing_page.find_elements(*landing_page.start_up_locators.text_juniors)
+        text_hr = landing_page.find_elements(*landing_page.start_up_locators.text_hr)
+        for text in texts_jun:
+            text.screenshot('temp.jpg')
+            with allure.step('Отображение текста Juniors'):
+                assert text.is_displayed()
+        for text in text_hr:
+            text.screenshot('temp.jpg')
+            with allure.step('Отображение текста в рекрутеров'):
+                assert text.is_displayed()
+        landing_page.find_element(*landing_page.start_up_locators.find_specialist_but).screenshot('temp.jpg')
+        with allure.step('Кнопка "Найти специалиста" ???????? '):
+            assert landing_page.check_link_href(landing_page.start_up_locators.find_specialist_but, href)
 
-    def test20(self, browser):
-        landing_page = LandingPage(browser)
-        browser.find_element(*landing_page.help_project_locators.header).screenshot('123.jpg')
-        assert landing_page.is_element_displayed(landing_page.help_project_locators.header), \
-               '↑ Отображение заголовка Помочь проекту'
-        browser.find_elements(*landing_page.help_project_locators.text)
-        assert landing_page.is_elements_displayed(landing_page.help_project_locators.text), \
-               '↑ Отображение текста в блоке'
+    def test20(self, landing_page):
+        landing_page.find_element(*landing_page.help_project_locators.header).screenshot('temp.jpg')
+        with allure.step('Отображение заголовка Помочь проекту'):
+            assert landing_page.is_element_displayed(landing_page.help_project_locators.header)
+        texts = landing_page.find_elements(*landing_page.help_project_locators.text)
+        for text in texts:
+            text.screenshot('temp.jpg')
+            with allure.step('Отображение текста в блоке'):
+                assert text.is_displayed()
 
-    def test21(self, browser):
+    def test21(self, browser, landing_page):
         href = 'https://boosty.to/exlab_startup'
-        landing_page = LandingPage(browser)
-        browser.find_element(*landing_page.help_project_locators.link_boosty).screenshot('123.jpg')
-        assert landing_page.is_element_displayed(landing_page.help_project_locators.link_boosty), \
-               '↑ Отображение кнопки [Boosty]'
+        landing_page.find_element(*landing_page.help_project_locators.link_boosty).screenshot('temp.jpg')
+        with allure.step('Отображение кнопки [Boosty]'):
+            assert landing_page.is_element_displayed(landing_page.help_project_locators.link_boosty)
         button = landing_page.return_element(landing_page.help_project_locators.link_boosty)
         landing_page.click(button)
         browser.switch_to.window(browser.window_handles[1])
-        assert browser.current_url == href, \
-            'При нажатии на кнопку  [Boosty] открывается страница ExLab на сайте Boosty'
+        with allure.step('При нажатии на кнопку  [Boosty] открывается страница ExLab на сайте Boosty'):
+            assert browser.current_url == href
 
-    def test22(self, browser):
-        landing_page = LandingPage(browser)
-        browser.find_element(*landing_page.stay_connected.header).screenshot('123.jpg')
-        assert landing_page.is_element_displayed(landing_page.stay_connected.header), \
-               '↑ Отображение надписи Оставайся на связи'
-        browser.find_element(*landing_page.stay_connected.text).screenshot('123.jpg')
-        assert landing_page.is_element_displayed(landing_page.stay_connected.text), \
-            '↑ Отображение текста в блоке '
+    def test22(self, landing_page):
+        landing_page.find_element(*landing_page.stay_connected.header).screenshot('temp.jpg')
+        with allure.step('Отображение надписи Оставайся на связи'):
+            assert landing_page.is_element_displayed(landing_page.stay_connected.header)
+        landing_page.find_element(*landing_page.stay_connected.text).screenshot('temp.jpg')
+        with allure.step('Отображение текста в блоке '):
+            assert landing_page.is_element_displayed(landing_page.stay_connected.text)
 
-    def test23(self, browser):
-        landing_page = LandingPage(browser)
-        browser.find_element(*landing_page.footer_locators.footer_logo).screenshot('123.jpg')
-        assert landing_page.is_element_displayed(landing_page.footer_locators.footer_logo), \
-            '↑ Отображение логотипа ExLab'
-        browser.find_element(*landing_page.footer_locators.footer_text_under_logo).screenshot('123.jpg')
-        assert landing_page.is_element_displayed(landing_page.footer_locators.footer_text_under_logo), \
-            '↑ Отображение текста под логотипом ExLab'
+    def test23(self, landing_page):
+        landing_page.find_element(*landing_page.footer_locators.footer_logo).screenshot('temp.jpg')
+        with allure.step('Отображение логотипа ExLab'):
+            assert landing_page.is_element_displayed(landing_page.footer_locators.footer_logo)
+        landing_page.find_element(*landing_page.footer_locators.footer_text_under_logo).screenshot('temp.jpg')
+        with allure.step('Отображение текста под логотипом ExLab'):
+            assert landing_page.is_element_displayed(landing_page.footer_locators.footer_text_under_logo)
 
-    def test24(self, browser):  # идет редирект на вход, тест падает нужно доделать
+    def test24(self, browser, landing_page):  # нужно доделать, тест проверяет только переход в LinkdIn
         href = 'https://www.linkedin.com/company/exlab-start-up'
-        landing_page = LandingPage(browser)
-        browser.find_element(*landing_page.footer_locators.link_lnkdn).screenshot('123.jpg')
-        assert landing_page.is_element_displayed(landing_page.footer_locators.link_lnkdn), \
-            '↑ Отображение ссылки LNKDN'
+        landing_page.find_element(*landing_page.footer_locators.link_lnkdn).screenshot('temp.jpg')
+        with allure.step('Отображение ссылки LNKDN'):
+            assert landing_page.is_element_displayed(landing_page.footer_locators.link_lnkdn)
         landing_page.click_footer_link('LNKDN')
         browser.switch_to.window(browser.window_handles[1])
-        time.sleep(3)
-        assert browser.current_url.startswith('https://www.linkedin.com/'), \
-            '↑ При нажатии попадаем на  LinkedIn'
+        with allure.step('При нажатии попадаем на  LinkedIn'):
+            assert browser.current_url.startswith('https://www.linkedin.com/')
 
-    def test25(self, browser):
+    def test25(self, browser, landing_page):
         href = 'https://www.instagram.com/exlab_startup/'
-        landing_page = LandingPage(browser)
-        browser.find_element(*landing_page.footer_locators.link_instgrm).screenshot('123.jpg')
-        assert landing_page.is_element_displayed(landing_page.footer_locators.link_instgrm), \
-            '↑ Отображение ссылки INSTGRM'
+        landing_page.find_element(*landing_page.footer_locators.link_instgrm).screenshot('temp.jpg')
+        with allure.step('Отображение ссылки INSTGRM'):
+            assert landing_page.is_element_displayed(landing_page.footer_locators.link_instgrm)
         landing_page.click_footer_link('INSTGRM')
         browser.switch_to.window(browser.window_handles[1])
-        assert browser.current_url == href, \
-            '↑ При нажатии попадаем на страницу ExLab в Instagram'
+        with allure.step('При нажатии попадаем на страницу ExLab в Instagram'):
+            assert browser.current_url == href
 
-    def test26(self, browser):
+    def test26(self, browser, landing_page):
         href = 'https://t.me/ExLabChannel'
-        landing_page = LandingPage(browser)
-        browser.find_element(*landing_page.footer_locators.link_tlgrm).screenshot('123.jpg')
-        assert landing_page.is_element_displayed(landing_page.footer_locators.link_tlgrm), \
-            '↑ Отображение ссылки TLGRM'
+        landing_page.find_element(*landing_page.footer_locators.link_tlgrm).screenshot('temp.jpg')
+        with allure.step('Отображение ссылки TLGRM'):
+            assert landing_page.is_element_displayed(landing_page.footer_locators.link_tlgrm)
         landing_page.click_footer_link('TLGRM')
         browser.switch_to.window(browser.window_handles[1])
-        assert browser.current_url == href, \
-            '↑ При нажатии попадаем на страницу ExLab в Telegram'
+        with allure.step('При нажатии попадаем на страницу ExLab в Telegram'):
+            assert browser.current_url == href
 
-    def test27(self, browser):
+    def test27(self, browser, landing_page):
         href = 'https://www.youtube.com/channel/UC-TAnVYVN7qg5dgsYQJkuvA'
-        landing_page = LandingPage(browser)
-        browser.find_element(*landing_page.footer_locators.link_ytb).screenshot('123.jpg')
-        assert landing_page.is_element_displayed(landing_page.footer_locators.link_ytb), \
-            '↑ Отображение ссылки YTB'
+        landing_page.find_element(*landing_page.footer_locators.link_ytb).screenshot('temp.jpg')
+        with allure.step('Отображение ссылки YTB'):
+            assert landing_page.is_element_displayed(landing_page.footer_locators.link_ytb)
         landing_page.click_footer_link('YTB')
         browser.switch_to.window(browser.window_handles[1])
-        assert browser.current_url == href, \
-            '↑ При нажатии попадаем на страницу ExLab в Youtube'
+        with allure.step('При нажатии попадаем на страницу ExLab в Youtube'):
+            assert browser.current_url == href
 
-    def test28(self, browser):
-        landing_page = LandingPage(browser)
-        browser.find_element(*landing_page.footer_locators.mailto).screenshot('123.jpg')
-        assert landing_page.is_element_displayed(landing_page.footer_locators.mailto), \
-            '↑ Отображение ссылки info@exlab.team '
+    def test28(self, landing_page):
+        landing_page.find_element(*landing_page.footer_locators.mailto).screenshot('temp.jpg')
+        with allure.step('Отображение ссылки info@exlab.team'):
+            assert landing_page.is_element_displayed(landing_page.footer_locators.mailto)
+
+
+
 
 
 
