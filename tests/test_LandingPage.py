@@ -10,9 +10,9 @@ class TestLanding:
     @pytest.fixture()
     def landing_page(self, browser):
         landing_page = LandingPage(browser)
+
         yield landing_page
 
-    @allure.severity(allure.severity_level.CRITICAL)
     @allure.feature("БИГ СМОУК")
     def smoke_test(self, browser, landing_page):
         with allure.step('Лендинг ExLab доступен по правильному адресу'):
@@ -258,7 +258,7 @@ class TestLanding:
         with allure.step('Отображение текста в блоке '):
             assert landing_page.is_element_displayed(landing_page.stay_connected.text)
 
-    @allure.feature('footer')
+    @allure.feature('Footer')
     @allure.story('Логотипы', 'Текст в блоке')
     def test_logo_footer(self, landing_page):
         landing_page.find_element(*landing_page.footer_locators.footer_logo).screenshot('temp.jpg')
