@@ -14,7 +14,7 @@ class TestLanding:
         yield landing_page
 
     @allure.feature("БИГ СМОУК")
-    def smoke_test(self, browser, landing_page):
+    def test_smoke(self, browser, landing_page):
         with allure.step('Лендинг ExLab доступен по правильному адресу'):
             assert landing_page.check_url(browser.current_url)
         with allure.step('По умолчанию открывается темная тема лендинга'):
