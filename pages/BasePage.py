@@ -1,6 +1,3 @@
-import time
-
-from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as exp_cond
 from selenium.common import NoSuchElementException, TimeoutException
@@ -14,11 +11,10 @@ class BasePage(object):
         self.driver = driver
         self.timeout = 30
         self.find_element = driver.find_element
-
-    def wait_until_clickable(self, locator: tuple) -> WebElement:
-        return WebDriverWait(self.driver, 5).until(exp_cond.element_to_be_clickable(locator))
+        self.find_elements = driver.find_elements
 
     def is_element_displayed(self, locator):
+        """ Проверяем видимость элемента по его локатору """
         try:
             WebDriverWait(self, 10).until(exp_cond.visibility_of_element_located(locator), message=f'не вижу {locator}')
         except TimeoutException:
@@ -26,9 +22,11 @@ class BasePage(object):
         return True
 
     def check_url(self, url):
+        """ Сравниваем текущий URL с входящим в функцию"""
         return WebDriverWait(self, 10).until(exp_cond.url_to_be(url), message=f'{url}, неправильный')
 
     def is_element_present(self, locator):
+        """ Проверяем наличие элемента в DOM по его локатору"""
         try:
             WebDriverWait(self, 10).until(exp_cond.presence_of_element_located(locator))
         except TimeoutException:
@@ -37,69 +35,52 @@ class BasePage(object):
 
     @staticmethod
     def location_of_element(element: WebElement):
-        location = element.location
-        return location
+        """ Возвращаем координаты элемента на странице """
+        return element.location
 
     def return_element(self, locator) -> WebElement:
-        element = WebDriverWait(self, 10).until(exp_cond.visibility_of_element_located(locator))
-        return element
+        """ Возвращаем WebElement """
+        return WebDriverWait(self, 10).until(exp_cond.visibility_of_element_located(locator))
 
     def scroll_to_elem(self, element):
+        """ Скролл при помощи Java к элементу"""
         return self.driver.execute_script("arguments[0].scrollIntoView();", element)
 
     def navigate_to(self, locator):
+        """ Скролл при помощи Java к элементу по его локатору"""
         element = WebDriverWait(self, 10).until(exp_cond.visibility_of_element_located(locator))
         return self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
 
     def is_element_clickable(self, locator):
+        """ Проверяем кликабельность элемента"""
         try:
             WebDriverWait(self, 10).until(exp_cond.element_to_be_clickable(locator))
         except NoSuchElementException:
             return False
         return True
 
-    def check_link_href(self, locator, href):
+    def check_element_attribute(self, locator, attribute):
+        """ Проверяем нужный аттрибут у элемента"""
         element = WebDriverWait(self, 10).until(exp_cond.presence_of_element_located(locator))
-        element_href = element.get_property('href')
-        if element_href == href:
+        element_attribute = element.get_property(f'{attribute}')
+        if element_attribute == attribute:
             return True
         else:
             return False
 
     def is_elements_displayed(self, locator):
+        """ Ожидаем загрузку всех элементов"""
         try:
-            WebDriverWait(self, 10).until(exp_cond.presence_of_all_elements_located(locator))
+            WebDriverWait(self, 10).until(exp_cond.visibility_of_all_elements_located(locator))
         except TimeoutException:
             return False
         return True
 
-    def find_elem(self, locator: tuple) -> WebElement:
-        return WebDriverWait(self.driver, 10).until(self.driver.find_elements(locator))
-
-    def what_about_color(self, color: str):
-        removed_chars = ['(', ',', ')', 'r', 'g', 'b', 'a']
-        chars = set(removed_chars)
-        color = ''.join(c for c in color if c not in chars)
-        res = list(color.split(' '))
-        r, g, b = res[0], res[1], res[2]
-        answer = [r, g, b]
-        return answer
-
     def click(self, element):
+        """ Кликаем Java по элементу"""
         return self.driver.execute_script("arguments[0].click();", element)
 
-    def wait_load_wind(self):
-        return WebDriverWait(self.driver, 5).until(exp_cond.new_window_is_opened(self.driver.window_handles))
 
-    def element_text(self, how, what):
-        elements = self.driver.find_elements(how, what)
-        print(f'Количество элементов {len(elements)} \n')
-        elm_count = 1
-        for element in elements:
-            if element.text:
-                print(f'успешно проверен {elm_count} элемент, внутри тега {element.tag_name} есть текст \n')
-            elm_count += 1
-        else:
-            print(f'внутри {elm_count} текста нет')
+
 
 

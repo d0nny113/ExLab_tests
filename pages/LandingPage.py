@@ -1,7 +1,4 @@
-import time
-
 from selenium.common import NoSuchElementException
-from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from pages.BasePage import BasePage
 from locators.Locators import BaseLocators, HeaderDark, OpportunityDark, HeaderLight, HelpProjectDark
@@ -35,17 +32,6 @@ class LandingPage(BasePage):
     def navigate_to_switch_theme(self):
         """ Метод возвращает нажатие на икноку переключения темы  """
         return self.find_element(*BaseLocators.button_theme).click()
-
-    def check_theme(self):
-        """ Метод возвращает проверку цвета темы лендинга """
-        theme = self.find_element(*BaseLocators.button_theme)
-        color = theme.find_element(By.CSS_SELECTOR, 'div')
-        if color.get_attribute('class') == BaseLocators.light_theme:
-            return 'Light'
-        elif color.get_attribute('class') == BaseLocators.dark_theme:
-            return 'Dark'
-        else:
-            return 'locator Error'
 
     def click_join_button_why_exlab(self):
         """ Метод возвращает нажатие на кнопку присоединиться в разделе О нас """
