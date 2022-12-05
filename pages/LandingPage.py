@@ -26,7 +26,6 @@ class LandingPage(BasePage):
         self.help_project_locators = HelpProjectDark
         self.footer_locators = FooterDark
         self.stay_connected = StayConnectedDark
-        self.test = TestTest
 
     def click_join_button_header(self):
         """ Метод возвращает нажатие на кнопку присоединиться в шапке сайта """
@@ -102,6 +101,8 @@ class LandingPage(BasePage):
             return True
         else:
             return False
+
+
 
 
 

@@ -105,6 +105,3 @@ class FooterDark:
     link_ytb = (By.XPATH, '//a[@class="sc-WCkqM gwMRik" and contains(text(), "ytb")]')
     mailto = (By.XPATH, '//a[@class="sc-ikjQzJ gjCqBu"]')
 
-class TestTest:
-
-    footer = (By.CSS_SELECTOR, '.sc-brCFrObGFIzb')
