@@ -1,6 +1,6 @@
 
     # название
-name: Project test
+name: ExLab tests 🦀
 
 # целевые события для запуска
 # в данном случае это push и pull_request, в ветку master
@@ -17,7 +17,6 @@ jobs:
     
     # запускаются по шагам
     # name - название шага
-    # в github actions будет выводиться название шага, и процессы
     steps:
           - uses: actions/checkout@v3
           - name: Set up Python
@@ -32,7 +31,7 @@ jobs:
             run: |
                    pytest tests/test_LandingPage.py --alluredir=tests/results
           
-          - name: Get Allure history
+          - name: Get Allure history 🕜
             uses: actions/checkout@v2
             if: always()
             continue-on-error: true
@@ -40,7 +39,7 @@ jobs:
                  ref: gh-pages
                  path: gh-pages
 
-          - name: Allure Report action from marketplace
+          - name: Allure Report action from marketplace 🎯
             uses: simple-elf/allure-report-action@master
             if: always()
             id: allure-report
@@ -50,7 +49,7 @@ jobs:
                   allure_report: allure-report
                   allure_history: allure-history
 
-          - name: Deploy report to Github Pages
+          - name: Deploy report to Github Pages ⌛
             if: always()
             uses: peaceiris/actions-gh-pages@v2
             env:
