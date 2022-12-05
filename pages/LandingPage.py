@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as exp_cond
 from pages.BasePage import BasePage
-from locators.Locators import BaseLocators, HeaderDark, OpportunityDark, HeaderLight, HelpProjectDark, TestTest
+from locators.Locators import BaseLocators, HeaderDark, OpportunityDark, HeaderLight, HelpProjectDark
 from locators.Locators import AboutUsDark, ProjectsDark, MentorsDark, FooterDark, StartUpForDark, StayConnectedDark
 
 
