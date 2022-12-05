@@ -12,6 +12,7 @@ class TestLanding:
         landing_page = LandingPage(browser)
         yield landing_page
 
+    @allure.severity(allure.severity_level.CRITICAL)
     @allure.feature("БИГ СМОУК")
     def test1(self, browser, time_delta, landing_page):
         with allure.step('Лендинг ExLab доступен по правильному адресу'):
@@ -19,11 +20,13 @@ class TestLanding:
         with allure.step('По умолчанию открывается темная тема лендинга'):
             assert landing_page.check_theme() == 'Dark'
 
+    @allure.story("Header")
     @allure.feature("Логотипы")
     def test2(self, landing_page):
         with allure.step('Отображение логотипа ExLab'):
             assert landing_page.is_element_displayed(landing_page.base_locators.LOGO_PIC_EXLAB)
 
+    @allure.story("Header")
     @allure.feature("Линки в header")
     def test3(self, landing_page):
         href_link = landing_page.base_locators.LANDING_LINK + '#about'
@@ -34,6 +37,7 @@ class TestLanding:
         with allure.step('Ссылка О нас кликабельна'):
             assert landing_page.is_element_clickable(landing_page.header_locators.link_o_nas)
 
+    @allure.story("Header")
     @allure.feature("Линки в header")
     def test4(self, landing_page):
         href_link = landing_page.base_locators.LANDING_LINK + '#projects'
@@ -44,6 +48,7 @@ class TestLanding:
         with allure.step('Ссылка Проекты кликабельна'):
             assert landing_page.is_element_clickable(landing_page.header_locators.link_projects)
 
+    @allure.story("Header")
     @allure.feature("Линки в header")
     def test5(self, landing_page):
         href_link = landing_page.base_locators.LANDING_LINK + '#mentors'
@@ -54,6 +59,7 @@ class TestLanding:
         with allure.step('Ссылка Менторы ведет на экран с заголовком Менторы'):
             assert landing_page.check_link_href(landing_page.header_locators.link_mentors, href_link)
 
+    @allure.story("Header")
     @allure.feature("Линки в header")
     def test6(self, landing_page):
         href_link = landing_page.base_locators.LANDING_LINK + '#startup'
@@ -64,6 +70,7 @@ class TestLanding:
         with allure.step('Ссылка StartUP кликабельна'):
             assert landing_page.is_element_clickable(landing_page.header_locators.link_startup)
 
+    @allure.story("Header")
     @allure.feature("Кнопки")
     def test7(self, landing_page):
         with allure.step('Проверка отображения кнопки переключения темы пользовательского интерфейса Sun Icon'):
@@ -72,10 +79,12 @@ class TestLanding:
             landing_page.wait_until_clickable(landing_page.header_locators.button_theme).click()
             assert landing_page.check_theme() == 'Light'
 
+    @allure.feature('Падающие тесты без функционала')
     @pytest.mark.xfail   # ПАДАЮЩИЙ ТЕСТ, ФУНКЦИОНАЛ НЕ ЗАВЕЗЛИ
     def test8(self, browser):
         landing_page = LandingPage(browser)
 
+    @allure.story("Header")
     @allure.feature("Кнопки", 'Переход на сторонний ресурс')
     def test9(self, browser, landing_page):   # нужно поправить для FireFox
         href = 'https://t.me/ExLab_registration_bot'
@@ -88,6 +97,7 @@ class TestLanding:
             browser.switch_to.window(browser.window_handles[1])
             assert browser.current_url == href
 
+    @allure.story("Header")
     @allure.feature("Линки в header")
     def test10(self, landing_page):
         q = landing_page.return_element(landing_page.header_locators.link_o_nas).location['y']
@@ -184,7 +194,7 @@ class TestLanding:
         with allure.step('Кнопка "Стать ментором" ????? '):
             assert landing_page.check_link_href(landing_page.mentors_locators.stand_mentors_but, href)
 
-    @allure.feature('Заголовки', 'Текст в блоке')
+    @allure.feature('Заголовки', 'Текст в блоке', 'Кнопки')
     def test19(self, landing_page):   # тест не доделан, кнопка никуда не ведет!!
         href = landing_page.base_locators.LANDING_LINK + '#'
         landing_page.find_element(*landing_page.start_up_locators.header).screenshot('temp.jpg')
@@ -236,7 +246,7 @@ class TestLanding:
         with allure.step('Отображение текста в блоке '):
             assert landing_page.is_element_displayed(landing_page.stay_connected.text)
 
-    @allure.feature("Footer", 'Логотипы', 'Текст в блоке')
+    @allure.feature('Логотипы', 'Текст в блоке')
     def test23(self, landing_page):
         landing_page.find_element(*landing_page.footer_locators.footer_logo).screenshot('temp.jpg')
         with allure.step('Отображение логотипа ExLab'):
