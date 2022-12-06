@@ -38,7 +38,7 @@ class HeaderLight:
 
 class OpportunityDark:
 
-    logo_exlab = (By.CSS_SELECTOR, 'div.sc-jSMfEi.ktArbA')
+    logo_exlab = (By.CSS_SELECTOR, 'img.sc-idiyUo.gJxphU')
     header_opportunity = (By.CSS_SELECTOR, 'div.sc-dmRaPn.ljhwJa')
     text_opportunity = (By.XPATH, '//div[@class="sc-kgflAQ gUFAgN"]')
 

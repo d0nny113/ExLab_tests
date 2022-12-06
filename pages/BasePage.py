@@ -15,6 +15,9 @@ class BasePage(object):
     def wait_until_clickable(self, locator: tuple) -> WebElement:
         return WebDriverWait(self.driver, 5).until(exp_cond.element_to_be_clickable(locator))
 
+    def image_check(self, locator):
+        return WebDriverWait(self.driver, 10).until(exp_cond.visibility_of_element_located(locator))
+
     def is_element_displayed(self, locator):
         try:
             WebDriverWait(self, 10).until(exp_cond.visibility_of_element_located(locator), message=f'не вижу {locator}')

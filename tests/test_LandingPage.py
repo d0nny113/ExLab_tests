@@ -1,7 +1,8 @@
-
+import time
 import pytest
 import allure
 
+import urllib.request
 from pages.LandingPage import LandingPage
 
 
@@ -24,7 +25,7 @@ class TestLanding:
     @allure.story('Логотипы')
     def test_logo_header(self, landing_page):
         with allure.step('Отображение логотипа ExLab'):
-            assert landing_page.is_element_displayed(landing_page.base_locators.LOGO_PIC_EXLAB)
+            assert landing_page.image_check(landing_page.base_locators.LOGO_PIC_EXLAB)
 
     @allure.feature('Header')
     @allure.story('Линки в header')
@@ -110,9 +111,11 @@ class TestLanding:
     @allure.feature('Блоки лендинга')
     @allure.story("Логотипы")
     def test_logo_opportunity_block(self, landing_page):
-        landing_page.find_element(*landing_page.opportunity_locators.logo_exlab).screenshot('temp.jpg')
+        time.sleep(15)  # ждем загрузки лого
+        landing_page.image_check(landing_page.opportunity_locators.logo_exlab).screenshot('temp.jpg')
         with allure.step('Отображение логотипа  ExLab в блоке "Твоя возможность"'):
             assert landing_page.is_element_displayed(landing_page.opportunity_locators.logo_exlab)
+            allure.attach('temp.jpg')
 
     @allure.feature('Блоки лендинга')
     @allure.story('Заголовки', 'Текст в блоке')
@@ -186,16 +189,22 @@ class TestLanding:
         mentors_card = landing_page.find_elements(*landing_page.mentors_locators.mentors_card)
         for mentor in mentors_card:
             button = mentor.find_element(*landing_page.mentors_locators.mentors_button)
-            landing_page.click(button)
+            landing_page.click(mentor)
             with allure.step('При нажатии на область ментора (при закрытом спойлере) спойлер открывается'):
                 assert button.get_attribute('class').split(' ')[1] == 'gGHWQo'
-            landing_page.find_element(*landing_page.mentors_locators.mentor_photo).screenshot('temp.jpg')
+            mentor.find_element(*landing_page.mentors_locators.mentor_photo).screenshot('temp2.jpg')
+
             with allure.step('Фотография ментора  отображается'):
                 assert landing_page.is_element_displayed(landing_page.mentors_locators.mentor_photo)
-            landing_page.find_element(*landing_page.mentors_locators.mentor_text).screenshot('temp.jpg')
+                img = urllib.request.urlopen(mentor.find_element(*landing_page.mentors_locators.mentor_photo)
+                                             .get_attribute('src')).read()
+                out = open("mentor_photo.jpg", "wb")
+                out.write(img)
+                allure.attach('mentor_photo.jpg')
+            mentor.find_element(*landing_page.mentors_locators.mentor_text).screenshot('temp.jpg')
             with allure.step('При открытом спойлере отображается информации о менторе'):
                 assert landing_page.is_element_displayed(landing_page.mentors_locators.mentor_text)
-            landing_page.click(button)
+            landing_page.click(mentor)
             with allure.step('При нажатии на область ментора (при развернутом спойлере) спойлер закрывается'):
                 assert button.get_attribute('class').split(' ')[1] == 'cFcyNJ'
         landing_page.find_element(*landing_page.mentors_locators.stand_mentors_but).screenshot('temp.jpg')

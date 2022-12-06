@@ -8,8 +8,8 @@ from selenium.webdriver.chrome.service import Service
 def pytest_addoption(parser):
     parser.addoption('--browser_name', action='store', default='chrome',
                      help="Choose browser: chrome or firefox or yandex")
-    parser.addoption('--width_window', action='store', default='1024')
-    parser.addoption('--height_window', action='store', default='768')
+    parser.addoption('--width_window', action='store', default='1920')
+    parser.addoption('--height_window', action='store', default='1080')
 
     parser.addoption('--language', action='store', default='en',
                      help="Choose language: 'ru' or 'en'")
