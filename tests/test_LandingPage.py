@@ -196,9 +196,7 @@ class TestLanding:
 
             with allure.step('Фотография ментора  отображается'):
                 assert landing_page.is_element_displayed(landing_page.mentors_locators.mentor_photo)
-
-                allure.attach.file(mentor.find_element(*landing_page.mentors_locators.mentor_photo)
-                                   .get_attribute('src'), name='mentor_photo', attachment_type=AttachmentType.JPG)
+                allure.attach.file('temp2.jpg', name='mentor_photo', attachment_type=AttachmentType.JPG)
             mentor.find_element(*landing_page.mentors_locators.mentor_text).screenshot('temp.jpg')
             with allure.step('При открытом спойлере отображается информации о менторе'):
                 assert landing_page.is_element_displayed(landing_page.mentors_locators.mentor_text)
