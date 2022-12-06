@@ -1,3 +1,4 @@
+from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as exp_cond
 from selenium.common import NoSuchElementException, TimeoutException
@@ -68,7 +69,8 @@ class BasePage(object):
     def click(self, element):
         return self.driver.execute_script("arguments[0].click();", element)
 
-
+    def waiting_page(self):
+        return WebDriverWait(self.driver, 10).until(exp_cond.visibility_of_all_elements_located((By.TAG_NAME, "html")))
 
 
 
