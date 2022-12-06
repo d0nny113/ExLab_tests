@@ -115,7 +115,7 @@ class TestLanding:
         landing_page.image_check(landing_page.opportunity_locators.logo_exlab).screenshot('temp.jpg')
         with allure.step('Отображение логотипа  ExLab в блоке "Твоя возможность"'):
             assert landing_page.is_element_displayed(landing_page.opportunity_locators.logo_exlab)
-            allure.attach('temp.jpg', attachment_type=AttachmentType.JPG)
+            allure.attach.file('temp.jpg', name='logo', attachment_type=AttachmentType.JPG)
 
     @allure.feature('Блоки лендинга')
     @allure.story('Заголовки', 'Текст в блоке')
@@ -196,11 +196,9 @@ class TestLanding:
 
             with allure.step('Фотография ментора  отображается'):
                 assert landing_page.is_element_displayed(landing_page.mentors_locators.mentor_photo)
-                img = urllib.request.urlopen(mentor.find_element(*landing_page.mentors_locators.mentor_photo)
-                                             .get_attribute('src')).read()
-                out = open("mentor_photo.jpg", "wb")
-                out.write(img)
-                allure.attach('mentor_photo.jpg', attachment_type=AttachmentType.JPG)
+
+                allure.attach.file(mentor.find_element(*landing_page.mentors_locators.mentor_photo)
+                                   .get_attribute('src'), name='mentor_photo', attachment_type=AttachmentType.JPG)
             mentor.find_element(*landing_page.mentors_locators.mentor_text).screenshot('temp.jpg')
             with allure.step('При открытом спойлере отображается информации о менторе'):
                 assert landing_page.is_element_displayed(landing_page.mentors_locators.mentor_text)
