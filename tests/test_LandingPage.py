@@ -247,7 +247,7 @@ class TestLanding:
                 out = open("img.jpg", "wb")
                 out.write(img)
                 mentor_photo = Image.open('img.jpg')
-                mentor_photo.resize((110, 130))
+                mentor_photo.thumbnail((220, 260))
                 mentor_photo.save('img.jpg')
                 allure.attach.file('img.jpg', name='mentor_photo', attachment_type=AttachmentType.JPG)
             mentor.find_element(*landing_page.mentors_locators.mentor_text_box).screenshot('temp.jpg')
