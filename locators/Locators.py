@@ -77,13 +77,15 @@ class MentorsDark:
 
     header_mentors = (By.CSS_SELECTOR, '#mentors div')
     mentors_card = (By.CSS_SELECTOR, '.sc-jIAOiI.eSpxWu')
-    mentor_photo = (By.CSS_SELECTOR, 'div.sc-bUbCnL.fJhsUc img')
 
-    mentor_text = (By.CSS_SELECTOR, 'div.sc-bUbCnL.fJhsUc ul')
     mentors_button = (By.CSS_SELECTOR, 'span')
     mentors_name = (By.CSS_SELECTOR, 'p.sc-jOhDuK.efeKUw')
 
     stand_mentors_but = (By.CSS_SELECTOR, 'div.sc-dwLEzm.kIwrdA a')
+
+    mentor_photo = (By.CSS_SELECTOR, 'div.sc-bUbCnL.fJhsUc img')
+
+    mentor_text = (By.CSS_SELECTOR, 'div.sc-bUbCnL.fJhsUc li')
 
 
 class StartUpForDark:
