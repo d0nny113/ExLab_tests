@@ -189,18 +189,20 @@ class TestLanding:
         mentors_card = landing_page.find_elements(*landing_page.mentors_locators.mentors_card)
         for mentor in mentors_card:
             button = mentor.find_element(*landing_page.mentors_locators.mentors_button)
-            landing_page.click(mentor)
+            mentor.find_element(*landing_page.mentors_locators.mentors_button).screenshot('temp.jpg')
+
+            landing_page.click(button)
             with allure.step('При нажатии на область ментора (при закрытом спойлере) спойлер открывается'):
                 assert button.get_attribute('class').split(' ')[1] == 'gGHWQo'
-            mentor.find_element(*landing_page.mentors_locators.mentor_photo).screenshot('temp2.jpg')
+            mentor.find_element(*landing_page.mentors_locators.mentor_photo).screenshot('temp.jpg')
 
             with allure.step('Фотография ментора  отображается'):
                 assert landing_page.is_element_displayed(landing_page.mentors_locators.mentor_photo)
-                allure.attach.file('temp2.jpg', name='mentor_photo', attachment_type=AttachmentType.JPG)
+                allure.attach.file('temp.jpg', name='mentor_photo', attachment_type=AttachmentType.JPG)
             mentor.find_element(*landing_page.mentors_locators.mentor_text).screenshot('temp.jpg')
             with allure.step('При открытом спойлере отображается информации о менторе'):
                 assert landing_page.is_element_displayed(landing_page.mentors_locators.mentor_text)
-            landing_page.click(mentor)
+            landing_page.click(button)
             with allure.step('При нажатии на область ментора (при развернутом спойлере) спойлер закрывается'):
                 assert button.get_attribute('class').split(' ')[1] == 'cFcyNJ'
         landing_page.find_element(*landing_page.mentors_locators.stand_mentors_but).screenshot('temp.jpg')
