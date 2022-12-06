@@ -70,7 +70,8 @@ class BasePage(object):
         return self.driver.execute_script("arguments[0].click();", element)
 
     def waiting_page(self):
-        return WebDriverWait(self.driver, 10).until(exp_cond.visibility_of_all_elements_located((By.TAG_NAME, "html")))
+        return WebDriverWait(self.driver, 10).until(lambda driver: driver.execute_script
+                                                    ('return document.readyState') == 'complete')
 
 
 

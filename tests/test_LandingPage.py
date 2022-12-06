@@ -207,22 +207,18 @@ class TestLanding:
     @allure.feature('Блоки лендинга')
     @allure.story('Логотипы', 'Текст в блоке')
     def test_project_block_logo_and_text(self, landing_page, browser):
-        logos = landing_page.find_elements(*landing_page.project_locators.logo_projects_pics)
         landing_page.waiting_page()
+        logos = landing_page.find_elements(*landing_page.project_locators.logo_projects_pics)
         for logo in logos:
             with allure.step('Отображение логотипов ExLab, HealthyLife, Easyhelp в блоке'):
 
                 logo.screenshot('temp.jpg')
                 assert logo.is_displayed()
-
-                img = urllib.request.urlopen(logo.get_attribute('src')).read()
-                out = open("logo.jpg", "wb")
-                out.write(img)
-                allure.attach.file('logo.jpg', name='project_logo', attachment_type=AttachmentType.JPG)
+                allure.attach.file('temp.jpg', name='project_logo', attachment_type=AttachmentType.JPG)
 
         texts = landing_page.find_elements(*landing_page.project_locators.projects_text)
-        for text in texts:
-            with allure.step('Отображение текста в описании проекта ExLab, HealthyLife, Easyhelp'):
+        with allure.step('Отображение текста в описании проекта ExLab, HealthyLife, Easyhelp'):
+            for text in texts:
                 text.screenshot('temp.jpg')
                 assert text.is_displayed()
                 allure.attach.file('temp.jpg', name='project_text', attachment_type=AttachmentType.JPG)
