@@ -47,8 +47,8 @@ class AboutUsDark:
 
     header_o_nas = (By.CSS_SELECTOR, '#about div')
     text_o_nas = (By.XPATH, '//p[@class="sc-himrzO bgsrpw"]')
-    why_exlab_header = (By.XPATH, '//div[@class="sc-ciZhAO fBFmnR"]')
-    why_exlab_text = (By.XPATH, '//ol[@class="sc-bZnhIo fYGDkJ"]')
+    why_exlab_header = (By.CSS_SELECTOR, '.sc-ciZhAO.fBFmnR')
+    why_exlab_text = (By.CSS_SELECTOR, '.sc-iTONeN.evZcxl')
     why_exlab_join_button = (By.XPATH, '//a[@class="sc-dkzDqf dEddqP"]')
 
 

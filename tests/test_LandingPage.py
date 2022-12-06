@@ -160,10 +160,12 @@ class TestLanding:
         allure.attach.file('temp.jpg', name='why_ex_head', attachment_type=AttachmentType.JPG)
         with allure.step('Отображение надписи "Почему ExLab?" '):
             assert landing_page.is_element_displayed(landing_page.about_us_locators.why_exlab_header)
-        landing_page.find_element(*landing_page.about_us_locators.why_exlab_text).screenshot('temp.jpg')
-        allure.attach.file('temp.jpg', name='why_ex_text', attachment_type=AttachmentType.JPG)
-        with allure.step('Отображение текста под надписью "Почему ExLab?" '):
-            assert landing_page.is_element_displayed(landing_page.about_us_locators.why_exlab_text)
+        texts = landing_page.find_elements(*landing_page.about_us_locators.why_exlab_text)
+        for text in texts:
+            text.screenshot('temp.jpg')
+            allure.attach.file('temp.jpg', name='why_ex_text', attachment_type=AttachmentType.JPG)
+            with allure.step('Отображение текста под надписью "Почему ExLab?" '):
+                assert text.is_displayed()
 
     @allure.feature('Блоки лендинга')
     @allure.story("Кнопки", 'Переход на сторонний ресурс')
@@ -194,7 +196,11 @@ class TestLanding:
         logos = landing_page.find_elements(*landing_page.project_locators.logo_projects_pics)
         for logo in logos:
             logo.screenshot('temp.jpg')
-            allure.attach.file('temp.jpg', name='project_logo', attachment_type=AttachmentType.JPG)
+
+            img = urllib.request.urlopen(logo.get_attribute('src')).read()
+            out = open("logo.jpg", "wb")
+            out.write(img)
+            allure.attach.file('logo.jpg', name='project_logo', attachment_type=AttachmentType.JPG)
             with allure.step('Отображение логотипов ExLab, HealthyLife, Easyhelp в блоке'):
                 assert logo.is_displayed()
         texts = landing_page.find_elements(*landing_page.project_locators.projects_text)
@@ -221,15 +227,21 @@ class TestLanding:
             mentor.find_element(*landing_page.mentors_locators.mentor_photo).screenshot('temp.jpg')
             with allure.step('Фотография ментора  отображается'):
                 assert landing_page.is_element_displayed(landing_page.mentors_locators.mentor_photo)
-                allure.attach.file(mentor.find_element(*landing_page.mentors_locators.mentor_photo)
-                                   .get_attribute('src'), name='mentor_photo', attachment_type=AttachmentType.JPG)
+
+                img = urllib.request.urlopen(mentor.find_element(*landing_page.mentors_locators.mentor_photo)
+                                             .get_attribute('src')).read()
+                out = open("img.jpg", "wb")
+                out.write(img)
+
+                allure.attach.file('img.jpg', name='mentor_photo', attachment_type=AttachmentType.JPG)
             texts = mentor.find_elements(*landing_page.mentors_locators.mentor_text)
             for text in texts:
                 text.screenshot('temp.jpg')
+                allure.attach.file('temp.jpg', name='mentor_text', attachment_type=AttachmentType.JPG)
 
             with allure.step('При открытом спойлере отображается информации о менторе'):
-                assert landing_page.is_element_displayed(landing_page.mentors_locators.mentor_text)
-                allure.attach.file('temp.jpg', name='mentor_text', attachment_type=AttachmentType.JPG)
+                assert landing_page.is_elements_displayed(landing_page.mentors_locators.mentor_text)
+
             mentor.find_element(*landing_page.mentors_locators.mentors_button).screenshot('temp.jpg')
             landing_page.click(button)
             with allure.step('При нажатии на область ментора (при развернутом спойлере) спойлер закрывается'):
