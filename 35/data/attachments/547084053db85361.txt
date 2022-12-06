@@ -1,0 +1,6 @@
+
+start chrome browser for test..
+
+Тест шел: 1.4289183616638184
+
+quit browser..
