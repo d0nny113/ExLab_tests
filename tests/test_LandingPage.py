@@ -27,8 +27,11 @@ class TestLanding:
     @allure.feature('Header')
     @allure.story('Логотипы')
     def test_logo_header(self, landing_page):
+        landing_page.waiting_page()
         with allure.step('Отображение логотипа ExLab'):
+            landing_page.find_element(*landing_page.base_locators.LOGO_PIC_EXLAB).screenshot('temp.jpg')
             assert landing_page.image_check(landing_page.base_locators.LOGO_PIC_EXLAB)
+            allure.attach.file('temp.jpg', name='header_logo', attachment_type=AttachmentType.JPG)
 
     @allure.feature('Header')
     @allure.story('Линки в header')
