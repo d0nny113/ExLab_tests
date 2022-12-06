@@ -192,9 +192,10 @@ class TestLanding:
 
     @allure.feature('Блоки лендинга')
     @allure.story('Логотипы', 'Текст в блоке')
-    def test_project_block_logo_and_text(self, landing_page):
+    def test_project_block_logo_and_text(self, landing_page, browser):
         logos = landing_page.find_elements(*landing_page.project_locators.logo_projects_pics)
         for logo in logos:
+            browser.implicitly_wait(1)
             logo.screenshot('temp.jpg')
 
             img = urllib.request.urlopen(logo.get_attribute('src')).read()
