@@ -235,14 +235,13 @@ class TestLanding:
                 out.write(img)
 
                 allure.attach.file('img.jpg', name='mentor_photo', attachment_type=AttachmentType.JPG)
+            mentor.find_element(*landing_page.mentors_locators.mentor_text_box).screenshot('temp.jpg')
             texts = mentor.find_elements(*landing_page.mentors_locators.mentor_text)
             for text in texts:
                 text.screenshot('temp.jpg')
                 allure.attach.file('temp.jpg', name='mentor_text', attachment_type=AttachmentType.JPG)
-
-            with allure.step('При открытом спойлере отображается информации о менторе'):
-                assert landing_page.is_elements_displayed(landing_page.mentors_locators.mentor_text)
-
+                with allure.step('При открытом спойлере отображается информации о менторе'):
+                    assert text.is_displayed()
             mentor.find_element(*landing_page.mentors_locators.mentors_button).screenshot('temp.jpg')
             landing_page.click(button)
             with allure.step('При нажатии на область ментора (при развернутом спойлере) спойлер закрывается'):

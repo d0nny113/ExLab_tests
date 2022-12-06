@@ -86,6 +86,7 @@ class MentorsDark:
     mentor_photo = (By.CSS_SELECTOR, 'div.sc-bUbCnL.fJhsUc img')
 
     mentor_text = (By.CSS_SELECTOR, 'div.sc-bUbCnL.fJhsUc li')
+    mentor_text_box = (By.CSS_SELECTOR, '.sc-dsQDmV.iZMcmm')
 
 
 class StartUpForDark:
